@@ -98,15 +98,15 @@ export function LoginPage({ onSuccess, onBack, requireAuth }: LoginPageProps) {
     }
   };
 
-  const handleFacebook = async () => {
+  const handleTwitter = async () => {
     setBusy(true);
     setError(null);
     const { error: err } = await supabase.auth.signInWithOAuth({
-      provider: 'facebook',
+      provider: 'twitter',
       options: { redirectTo: window.location.origin },
     });
     if (err) {
-      setError(err.message || 'فشل تسجيل الدخول عبر فيسبوك');
+      setError(err.message || 'فشل تسجيل الدخول عبر تويتر (X)');
       setBusy(false);
     }
   };
@@ -273,11 +273,11 @@ export function LoginPage({ onSuccess, onBack, requireAuth }: LoginPageProps) {
           جوجل
         </button>
         <button
-          onClick={handleFacebook}
+          onClick={handleTwitter}
           disabled={busy}
           className="flex items-center justify-center gap-2 glass rounded-xl py-3 text-sm font-semibold text-slate-200 hover:border-gold-500/30 transition-all disabled:opacity-60"
         >
-          فيسبوك
+          تويتر (X)
         </button>
       </div>
 
