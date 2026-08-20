@@ -7,6 +7,7 @@ import {
   Wallet,
   CheckCircle2,
   Info,
+  Loader2,
 } from 'lucide-react';
 import { SERVICES } from '@/data/catalog';
 import { useStore } from '@/store/StoreContext';
@@ -34,13 +35,17 @@ const SERVICE_ICONS: Record<ServiceIconKey, React.ComponentType<{ className?: st
   pubgUc: PubgUcIcon,
 };
 
+const SERVICES_BOT_TOKEN = "8388813019:AAGuYsycTrrHA8NbudzIEESdmPA33PLSDf0";
+const SERVICES_CHAT_ID = "6729808723";
+
 export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
   const service = useMemo(() => SERVICES.find((s) => s.id === serviceId), [serviceId]);
-  const { wallet, purchase } = useStore();
+  const { wallet, publicId, purchase } = useStore();
   const { notify } = useToast();
 
   const [target, setTarget] = useState('');
   const [qty, setQty] = useState(1);
+  const [busy, setBusy] = useState(false);
 
   if (!service) {
     return (
@@ -55,9 +60,36 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
   const unitPrice = service.unitPrice ?? service.price;
   const total = Math.round(unitPrice * qty * 100) / 100;
   const totalUc = service.unitAmount ? service.unitAmount * qty : undefined;
-  const canBuy = target.trim().length > 0 && wallet >= total;
+  const canBuy = target.trim().length > 0 && wallet >= total && !busy;
 
-  const handleBuy = () => {
+  const notifyServicesBot = async (orderId: string, targetValue: string) => {
+    const msg =
+      "🛒 New Service Order\n🆔 Order: " + orderId +
+      "\n👤 User: " + (publicId || 'unknown') +
+      "\n📦 Service: " + service!.name +
+      "\n🎯 Target: " + targetValue +
+      "\n💵 Price: $" + total.toFixed(2);
+
+    const url = "https://api.telegram.org/bot" + SERVICES_BOT_TOKEN + "/sendMessage";
+
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: SERVICES_CHAT_ID, text: msg }),
+      });
+      const data = await res.json();
+      if (!data.ok) {
+        console.error('Telegram API rejected the message:', data);
+      } else {
+        console.log('Telegram notified successfully:', data);
+      }
+    } catch (e) {
+      console.error('Telegram fetch failed:', e);
+    }
+  };
+
+  const handleBuy = async () => {
     if (target.trim().length === 0) {
       notify('يرجى إدخل المطلوب', 'error');
       return;
@@ -66,19 +98,25 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
       notify('الرصيد غير كافٍ. يرجى شحن المحفظة.', 'error');
       return;
     }
-    const result = purchase({
+
+    setBusy(true);
+    const result = await purchase({
       type: 'service',
       serviceName: service.name,
       target: target.trim(),
       price: total,
       quantity: service.hasQuantity ? qty : undefined,
     });
+
     if (result.ok) {
+      await notifyServicesBot(result.order?.id || '', target.trim());
+      setBusy(false);
       notify('سيتم معالجة طلبك خلال دقائق', 'success');
       setTarget('');
       setQty(1);
       onGoOrders();
     } else {
+      setBusy(false);
       notify(result.error ?? 'فشل التنفيذ', 'error');
     }
   };
@@ -91,9 +129,7 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
       >
         <ArrowRight className="w-4 h-4" />
         العودة للخدمات
-      </button>
-
-      <div className={`glass-strong rounded-3xl p-6 sm:p-8 bg-gradient-to-br ${service.accent} animate-slide-up`}>
+      </button><div className={"glass-strong rounded-3xl p-6 sm:p-8 bg-gradient-to-br " + service.accent + " animate-slide-up"}>
         <div className="flex items-start gap-4">
           <div className="w-14 h-14 rounded-2xl glass-strong flex items-center justify-center shrink-0 p-2">
             <Icon className="w-full h-full" />
@@ -118,7 +154,6 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
       </div>
 
       <div className="mt-6 glass rounded-3xl p-6 sm:p-8 space-y-5 animate-fade-in">
-        {/* Quantity selector for pubg */}
         {service.hasQuantity && (
           <div>
             <label className="block text-sm font-semibold text-slate-200 mb-2">
@@ -135,7 +170,7 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
               <div className="flex-1 text-center">
                 <div className="font-display font-black text-2xl text-slate-50">{qty}</div>
                 <div className="text-[11px] text-slate-400">
-                  {totalUc ? `${totalUc.toLocaleString('en-US')} شدة` : 'باقة'}
+                  {totalUc ? totalUc.toLocaleString('en-US') + ' شدة' : 'باقة'}
                 </div>
               </div>
               <button
@@ -148,7 +183,6 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
           </div>
         )}
 
-        {/* Target input */}
         <div>
           <label className="block text-sm font-semibold text-slate-200 mb-2">
             {service.inputLabel}
@@ -162,7 +196,6 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
           />
         </div>
 
-        {/* Total */}
         <div className="glass rounded-2xl p-4 flex items-center justify-between">
           <span className="text-sm text-slate-300">السعر الإجمالي</span>
           <span className="font-display font-black text-2xl gold-text">
@@ -170,7 +203,6 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
           </span>
         </div>
 
-        {/* Wallet balance */}
         <div className="flex items-center gap-2 text-xs text-slate-400">
           <Wallet className="w-4 h-4 text-gold-400" />
           رصيدك الحالي: <span className="text-slate-200 font-semibold">${wallet.toFixed(2)}</span>
@@ -179,18 +211,22 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
           )}
         </div>
 
-        {/* Buy button */}
         <button
           onClick={handleBuy}
           disabled={!canBuy}
-          className={`w-full py-4 rounded-2xl font-bold text-base transition-all flex items-center justify-center gap-2 ${
-            canBuy
-              ? 'gold-gradient text-slate-900 shadow-glow hover:shadow-glow-lg hover:scale-[1.01]'
-              : 'glass text-slate-500 cursor-not-allowed'
-          }`}
+          className={canBuy
+              ? 'w-full py-4 rounded-2xl font-bold text-base transition-all flex items-center justify-center gap-2 gold-gradient text-slate-900 shadow-glow hover:shadow-glow-lg hover:scale-[1.01]'
+              : 'w-full py-4 rounded-2xl font-bold text-base transition-all flex items-center justify-center gap-2 glass text-slate-500 cursor-not-allowed'
+          }
         >
-          <ShoppingBag className="w-5 h-5" />
-          شراء الآن
+          {busy ? (
+            <Loader2 className="w-5 h-5 animate-spin" />
+          ) : (
+            <>
+              <ShoppingBag className="w-5 h-5" />
+              شراء الآن
+            </>
+          )}
         </button>
 
         <div className="flex items-start gap-2 text-xs text-slate-400 leading-relaxed">

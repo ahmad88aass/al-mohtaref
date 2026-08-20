@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { AuthProvider, useAuth } from '@/store/AuthContext';
 import { StoreProvider } from '@/store/StoreContext';
 import { ToastProvider } from '@/store/ToastContext';
 import { ToastViewport } from '@/components/ToastViewport';
@@ -11,6 +12,7 @@ import { WalletPage } from '@/pages/WalletPage';
 import { PhonePurchaseModal } from '@/components/PhonePurchaseModal';
 import { AssistantWidget } from '@/components/AssistantWidget';
 import { Marquee } from '@/components/Marquee';
+import { LoginPage } from './login_ahmad/LoginPage';
 
 type Page = 'home' | 'services' | 'service-detail' | 'orders' | 'wallet';
 
@@ -18,6 +20,7 @@ function Shell() {
   const [page, setPage] = useState<Page>('home');
   const [serviceId, setServiceId] = useState<string | null>(null);
   const [phoneCountryId, setPhoneCountryId] = useState<string | null>(null);
+  const { isAuthModalOpen, closeAuthModal, openAuthModal } = useAuth();
 
   const nav = (p: string) => {
     setPage(p as Page);
@@ -36,10 +39,20 @@ function Shell() {
 
   const activeNav = page === 'service-detail' ? 'services' : page;
 
+  if (isAuthModalOpen) {
+    return (
+      <LoginPage
+        requireAuth
+        onSuccess={closeAuthModal}
+        onBack={closeAuthModal}
+      />
+    );
+  }
+
   return (
     <div className="app-bg min-h-screen text-slate-200">
       <Marquee />
-      <Header active={activeNav} onNav={nav} />
+      <Header active={activeNav} onNav={nav} onOpenAuth={openAuthModal} />
 
       <main className="pb-24 md:pb-10">
         {page === 'home' && (
@@ -78,11 +91,13 @@ function Shell() {
 
 export default function App() {
   return (
-    <ToastProvider>
-      <StoreProvider>
-        <Shell />
-        <ToastViewport />
-      </StoreProvider>
-    </ToastProvider>
+    <AuthProvider>
+      <ToastProvider>
+        <StoreProvider>
+          <Shell />
+          <ToastViewport />
+        </StoreProvider>
+      </ToastProvider>
+    </AuthProvider>
   );
 }

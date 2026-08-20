@@ -18,7 +18,7 @@ function randomCode(len: number): string {
 export function getUserId(): string {
   let id = localStorage.getItem(USER_ID_KEY);
   if (!id) {
-    id = `AL-${randomCode(6)}`;
+    id = "AL-" + randomCode(6);
     localStorage.setItem(USER_ID_KEY, id);
   }
   return id;
@@ -53,17 +53,40 @@ export function saveOrders(orders: Order[]): void {
   localStorage.setItem(ORDERS_KEY, JSON.stringify(orders));
 }
 
+export function updateOrderOtp(orderCodeOrId: string, otpCode: string): boolean {
+  const orders = getOrders();
+  let found = false;
+  
+  const updated = orders.map(order => {
+    if (order.code === orderCodeOrId || order.id === orderCodeOrId) {
+      found = true;
+      return {
+        ...order,
+        otp: otpCode,
+        status: 'completed' as const
+      };
+    }
+    return order;
+  });
+
+  if (found) {
+    saveOrders(updated);
+    return true;
+  }
+  return false;
+}
+
 export function generateOrderCode(): string {
-  return `#${randomCode(8)}`;
+  return "#" + randomCode(8);
 }
 
 export function generateOrderId(): string {
-  return `ord_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+  return "ord_" + Date.now() + "_" + Math.random().toString(36).slice(2, 8);
 }
 
 export function generatePhone(): string {
   const n = () => Math.floor(Math.random() * 10);
-  return `+${n()}${n()}${n()} ${n()}${n()}${n()} ${n()}${n()}${n()} ${n()}${n()}${n()}`;
+  return "+971 " + n() + n() + n() + " " + n() + n() + n() + " " + n() + n() + n();
 }
 
 export function generateOtp(): string {

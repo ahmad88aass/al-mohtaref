@@ -1,32 +1,20 @@
-const TelegramBot = require('node-telegram-bot-api');
-const { createClient } = require('@supabase/supabase-js');
+import TelegramBot from 'node-telegram-bot-api';
+import { createClient } from '@supabase/supabase-js';
 
 const token = '8062958069:AAHMn-CK9-UN0f2pmsu4H3POi-9I9kPNvo8';
 const bot = new TelegramBot(token, { polling: true });
 
-const supabaseUrl = 'https://tihozfggiujerepxqwjz.supabase.co';
+const supabaseUrl = 'https://your-supabase-url.supabase.co';
 const supabaseKey = 'sbp_7ebbc3edbfef8f9363a03dd4d9ec0d4eeea7ebbc';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-console.log('Bot is running...');
+console.log('🤖 Bot is running and connected...');
 
-bot.onText(/\/code (.+) (.+)/, async (msg, match) => {
+bot.on('message', async (msg) => {
   const chatId = msg.chat.id;
-  const orderId = match[1];
-  const otpCode = match[2];
+  const text = msg.text;
 
-  try {
-    const { data, error } = await supabase
-      .from('orders')
-      .update({ code: otpCode, status: 'completed' })
-      .eq('id', orderId);
-
-    if (error) {
-      bot.sendMessage(chatId, "❌ خطأ في تحديث الطلب: " + error.message);
-    } else {
-      bot.sendMessage(chatId, "✅ تم إرسال الكود (" + otpCode + ") للطلب رقم " + orderId + " بنجاح إلى الزبون!");
-    }
-  } catch (err) {
-    bot.sendMessage(chatId, "❌ حدث خطأ: " + err.message);
+  if (text === '/start') {
+    bot.sendMessage(chatId, 'أهلاً بك في منصة أمريكي نمبر وان ✈️! البوت يعمل بنجاح وجاهز لاستقبال العمليات والتنبيهات.');
   }
 });

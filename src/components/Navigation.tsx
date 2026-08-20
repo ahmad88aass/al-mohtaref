@@ -1,10 +1,13 @@
-import { Wallet, UserCircle2, Home, Sparkles, ClipboardList } from 'lucide-react';
-import { useStore } from '@/store/StoreContext';
-import { PentagonLogo } from '@/components/PentagonLogo';
+import React from 'react';
+import { Wallet, UserCircle2, Home, Sparkles, ClipboardList, LogIn, LogOut } from 'lucide-react';
+import { PentagonLogo } from './PentagonLogo';
+import { useStore } from '../store/StoreContext';
+import { useAuth } from '../store/AuthContext';
 
 interface HeaderProps {
   active: string;
   onNav: (page: string) => void;
+  onOpenAuth?: () => void;
 }
 
 const NAV_ITEMS = [
@@ -21,60 +24,81 @@ const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   Wallet,
 };
 
-export function Header({ active, onNav }: HeaderProps) {
-  const { wallet, userId } = useStore();
+export function Header({ active, onNav, onOpenAuth }: HeaderProps) {
+  const { wallet, publicId } = useStore();
+  const { isAuthenticated, signOut } = useAuth();
 
   return (
-    <header className="sticky top-0 z-50 glass-strong border-b border-white/5">
+    <header className="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
         <button
           onClick={() => onNav('home')}
           className="flex items-center gap-2.5 group shrink-0"
         >
-          <PentagonLogo className="w-9 h-9 drop-shadow-[0_0_8px_rgba(251,191,36,0.4)] group-hover:drop-shadow-[0_0_12px_rgba(251,191,36,0.6)] transition-all" />
+          <PentagonLogo className="w-9 h-9" />
           <div className="text-right leading-tight">
-            <div className="font-display font-extrabold text-base text-slate-50">المحترف</div>
-            <div className="text-[10px] text-gold-400/80 font-medium">Al-Mohtaref</div>
+            <div className="font-bold text-base text-slate-50">المحترف</div>
+            <div className="text-[10px] text-amber-400 font-medium">Al-Mohtaref</div>
           </div>
         </button>
 
         <nav className="hidden md:flex items-center gap-1">
-          {NAV_ITEMS.map((item) => (
-            <button
-              key={item.key}
-              onClick={() => onNav(item.key)}
-              className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
-                active === item.key
-                  ? 'text-gold-300 bg-gold-500/10'
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-white/5'
-              }`}
-            >
-              {item.label}
-            </button>
-          ))}
+          {NAV_ITEMS.map((item) => {
+            const isActive = active === item.key;
+            return (
+              <button
+                key={item.key}
+                onClick={() => onNav(item.key)}
+                className={isActive ? "px-4 py-2 rounded-xl text-sm font-medium transition-all text-amber-300 bg-amber-500/10" : "px-4 py-2 rounded-xl text-sm font-medium transition-all text-slate-400 hover:text-slate-100 hover:bg-slate-800"}
+              >
+                {item.label}
+              </button>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
           <button
             onClick={() => onNav('wallet')}
-            className="flex items-center gap-2 rounded-xl glass px-3 py-2 hover:border-gold-500/40 transition-colors"
+            className="flex items-center gap-2 rounded-xl bg-slate-800/80 border border-slate-700 px-3 py-2 hover:border-amber-500/40 transition-colors"
           >
-            <Wallet className="w-4 h-4 text-gold-400" />
+            <Wallet className="w-4 h-4 text-amber-400" />
             <span className="text-sm font-bold text-slate-100 tabular-nums">
-              ${wallet.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              ${wallet.toFixed(2)}
             </span>
           </button>
-          <div className="hidden sm:flex items-center gap-1.5 rounded-xl glass px-3 py-2">
-            <UserCircle2 className="w-4 h-4 text-slate-400" />
-            <span className="text-xs font-mono text-slate-300">{userId}</span>
-          </div>
+
+          {isAuthenticated && publicId && (
+            <div className="hidden sm:flex items-center gap-1.5 rounded-xl bg-slate-800/80 border border-slate-700 px-3 py-2">
+              <UserCircle2 className="w-4 h-4 text-slate-400" />
+              <span className="text-xs font-mono text-slate-300">{publicId}</span>
+            </div>
+          )}
+
+          {!isAuthenticated && onOpenAuth && (
+            <button
+              onClick={onOpenAuth}
+              className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-500 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition shadow-md shadow-blue-600/20"
+            >
+              <LogIn className="w-4 h-4" />
+              <span className="hidden sm:inline">دخول</span>
+            </button>
+          )}
+
+          {isAuthenticated && (
+            <button
+              onClick={() => signOut()}
+              className="flex items-center gap-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 px-3 py-2 rounded-xl text-xs font-bold transition"
+              title="تسجيل خروج"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
+          )}
         </div>
       </div>
     </header>
   );
-}
-
-export function BottomNav({ active, onNav }: HeaderProps) {
+}export function BottomNav({ active, onNav }: HeaderProps) {
   const items = [
     { key: 'home', label: 'الرئيسية', icon: 'Home' },
     { key: 'services', label: 'الخدمات', icon: 'Sparkles' },
@@ -82,7 +106,7 @@ export function BottomNav({ active, onNav }: HeaderProps) {
     { key: 'wallet', label: 'المحفظة', icon: 'Wallet' },
   ];
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 glass-strong border-t border-white/5 pb-[env(safe-area-inset-bottom)]">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-slate-900/90 backdrop-blur-md border-t border-slate-800 pb-[env(safe-area-inset-bottom)]">
       <div className="grid grid-cols-4">
         {items.map((item) => {
           const Icon = ICONS[item.icon];
@@ -91,11 +115,9 @@ export function BottomNav({ active, onNav }: HeaderProps) {
             <button
               key={item.key}
               onClick={() => onNav(item.key)}
-              className={`flex flex-col items-center gap-1 py-2.5 transition-colors ${
-                isActive ? 'text-gold-300' : 'text-slate-500'
-              }`}
+              className={isActive ? "flex flex-col items-center gap-1 py-2.5 transition-colors text-amber-300" : "flex flex-col items-center gap-1 py-2.5 transition-colors text-slate-500"}
             >
-              <Icon className={`w-5 h-5 ${isActive ? 'drop-shadow-[0_0_6px_rgba(251,191,36,0.5)]' : ''}`} />
+              <Icon className="w-5 h-5" />
               <span className="text-[10px] font-medium">{item.label}</span>
             </button>
           );
