@@ -1,3 +1,4 @@
+// Force Update: v1
 import { useState, type FormEvent } from 'react';
 import {
   Mail,
@@ -125,8 +126,7 @@ export function LoginPage({ onSuccess, onBack, requireAuth }: LoginPageProps) {
             <p className="text-sm text-slate-400 mt-2 leading-relaxed max-w-xs mx-auto">
               أرسلنا رابط تفعيل إلى بريدك الإلكتروني <span className="text-gold-300 font-semibold" dir="ltr">{email}</span>.
               <br />
-              افتح الرابط في البريد لتأكيد حسابك ثم سجل دخول.</p>
-          </div>
+              افتح الرابط في البريد لتأكيد حسابك ثم سجل دخول.</p></div>
           <div className="glass rounded-2xl p-4 text-right space-y-2">
             <div className="flex items-center gap-2 text-xs text-slate-300">
               <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
@@ -197,7 +197,6 @@ export function LoginPage({ onSuccess, onBack, requireAuth }: LoginPageProps) {
           إنشاء حساب
         </button>
       </div>
-
       <form onSubmit={handleSubmit} className="space-y-3.5">
         <div>
           <label className="block text-xs font-semibold text-slate-300 mb-1.5">البريد الإلكتروني</label>
@@ -224,8 +223,8 @@ export function LoginPage({ onSuccess, onBack, requireAuth }: LoginPageProps) {
               placeholder="****"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              autoComplete={mode === 'login' ? 'current-password' : 'new-password'}dir="ltr"
-            />
+              autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
+              dir="ltr"/>
             <button
               type="button"
               onClick={() => setShowPassword((v) => !v)}
@@ -305,7 +304,6 @@ function LoginShell({
   return (
     <div className="app-bg min-h-screen flex flex-col">
       <Marquee />
-
       <button
         onClick={onBack}
         className="absolute top-14 right-4 z-20 flex items-center gap-1.5 text-slate-400 hover:text-gold-300 transition-colors text-sm glass px-3 py-2 rounded-xl"
