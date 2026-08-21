@@ -10,6 +10,8 @@ import {
   Sparkles,
   CheckCircle2,
   AlertCircle,
+  Chrome,
+  Twitter,
 } from 'lucide-react';
 import { supabase } from '@/supabaseClient';
 import { useAuth } from '@/store/AuthContext';
@@ -123,9 +125,9 @@ export function LoginPage({ onSuccess, onBack, requireAuth }: LoginPageProps) {
             <p className="text-sm text-slate-400 mt-2 leading-relaxed max-w-xs mx-auto">
               أرسلنا رابط تفعيل إلى بريدك الإلكتروني <span className="text-gold-300 font-semibold" dir="ltr">{email}</span>.
               <br />
-              افتح الرابط في البريد لتأكيد حسابك ثم سجل دخول.
-            </p>
-          </div><div className="glass rounded-2xl p-4 text-right space-y-2">
+              افتح الرابط في البريد لتأكيد حسابك ثم سجل دخول.</p>
+          </div>
+          <div className="glass rounded-2xl p-4 text-right space-y-2">
             <div className="flex items-center gap-2 text-xs text-slate-300">
               <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
               تم إنشاء حسابك بنجاح
@@ -212,7 +214,6 @@ export function LoginPage({ onSuccess, onBack, requireAuth }: LoginPageProps) {
             />
           </div>
         </div>
-
         <div>
           <label className="block text-xs font-semibold text-slate-300 mb-1.5">كلمة المرور</label>
           <div className="relative">
@@ -223,9 +224,9 @@ export function LoginPage({ onSuccess, onBack, requireAuth }: LoginPageProps) {
               placeholder="****"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
-              dir="ltr"
-            /><button
+              autoComplete={mode === 'login' ? 'current-password' : 'new-password'}dir="ltr"
+            />
+            <button
               type="button"
               onClick={() => setShowPassword((v) => !v)}
               className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors"
@@ -270,6 +271,7 @@ export function LoginPage({ onSuccess, onBack, requireAuth }: LoginPageProps) {
           disabled={busy}
           className="flex items-center justify-center gap-2 glass rounded-xl py-3 text-sm font-semibold text-slate-200 hover:border-gold-500/30 transition-all disabled:opacity-60"
         >
+          <Chrome className="w-4 h-4" />
           جوجل
         </button>
         <button
@@ -277,6 +279,7 @@ export function LoginPage({ onSuccess, onBack, requireAuth }: LoginPageProps) {
           disabled={busy}
           className="flex items-center justify-center gap-2 glass rounded-xl py-3 text-sm font-semibold text-slate-200 hover:border-gold-500/30 transition-all disabled:opacity-60"
         >
+          <Twitter className="w-4 h-4" />
           تويتر (X)
         </button>
       </div>
@@ -327,9 +330,9 @@ function LoginShell({
         <div className="w-full max-w-md">
           <div className="flex flex-col items-center mb-6">
             <AuthShield />
-            <div className="flex items-center gap-2 mt-4">
-              <PentagonLogo className="w-7 h-7" />
-              <h1 className="font-display font-black text-2xl"><span className="gold-text">المحترف</span>
+            <div className="flex items-center gap-2 mt-4"><PentagonLogo className="w-7 h-7" />
+              <h1 className="font-display font-black text-2xl">
+                <span className="gold-text">المحترف</span>
               </h1>
             </div>
             <p className="text-xs text-slate-400 mt-1 flex items-center gap-1.5">
