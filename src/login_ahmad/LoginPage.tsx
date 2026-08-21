@@ -105,7 +105,7 @@ export function LoginPage({ onSuccess, onBack, requireAuth }: LoginPageProps) {
     setBusy(true);
     setError(null);
     const { error: err } = await supabase.auth.signInWithOAuth({
-      provider: 'twitter',
+      provider: 'x',
       options: { redirectTo: window.location.origin },
     });
     if (err) {
