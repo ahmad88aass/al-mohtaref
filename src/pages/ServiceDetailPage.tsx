@@ -18,6 +18,7 @@ import {
   InstagramGrowIcon,
   TelegramPremiumIcon,
   InstagramUnlockIcon,
+  InstagramIcon,
   PubgUcIcon,
 } from '@/components/BrandIcons';
 import type { ServiceIconKey } from '@/types';
@@ -32,6 +33,7 @@ const SERVICE_ICONS: Record<ServiceIconKey, React.ComponentType<{ className?: st
   instagramGrow: InstagramGrowIcon,
   telegramPremium: TelegramPremiumIcon,
   instagramUnlock: InstagramUnlockIcon,
+  instagram: InstagramIcon,
   pubgUc: PubgUcIcon,
 };
 
@@ -63,9 +65,10 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
   const canBuy = target.trim().length > 0 && wallet >= total && !busy;
 
   const notifyServicesBot = async (orderId: string, targetValue: string) => {
+    const userLabel = publicId ? publicId : 'unknown';
     const msg =
       "🛒 New Service Order\n🆔 Order: " + orderId +
-      "\n👤 User: " + (publicId || 'unknown') +
+      "\n👤 User: " + userLabel +
       "\n📦 Service: " + service!.name +
       "\n🎯 Target: " + targetValue +
       "\n💵 Price: $" + total.toFixed(2);
@@ -109,7 +112,8 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
     });
 
     if (result.ok) {
-      await notifyServicesBot(result.order?.id || '', target.trim());
+      const orderIdValue = result.order && result.order.id ? result.order.id : '';
+      await notifyServicesBot(orderIdValue, target.trim());
       setBusy(false);
       notify('سيتم معالجة طلبك خلال دقائق', 'success');
       setTarget('');
@@ -119,9 +123,7 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
       setBusy(false);
       notify(result.error ?? 'فشل التنفيذ', 'error');
     }
-  };
-
-  return (
+  };return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
       <button
         onClick={onBack}
@@ -129,7 +131,9 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
       >
         <ArrowRight className="w-4 h-4" />
         العودة للخدمات
-      </button><div className={"glass-strong rounded-3xl p-6 sm:p-8 bg-gradient-to-br " + service.accent + " animate-slide-up"}>
+      </button>
+
+      <div className={"glass-strong rounded-3xl p-6 sm:p-8 bg-gradient-to-br " + service.accent + " animate-slide-up"}>
         <div className="flex items-start gap-4">
           <div className="w-14 h-14 rounded-2xl glass-strong flex items-center justify-center shrink-0 p-2">
             <Icon className="w-full h-full" />
@@ -209,9 +213,7 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
           {wallet < total && (
             <span className="text-red-400 font-medium">— غير كافٍ</span>
           )}
-        </div>
-
-        <button
+        </div><button
           onClick={handleBuy}
           disabled={!canBuy}
           className={canBuy

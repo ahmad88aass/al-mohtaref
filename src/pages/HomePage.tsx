@@ -20,6 +20,7 @@ import {
   InstagramGrowIcon,
   TelegramPremiumIcon,
   InstagramUnlockIcon,
+  InstagramIcon,
   PubgUcIcon,
 } from '@/components/BrandIcons';
 import type { ServiceIconKey } from '@/types';
@@ -34,6 +35,7 @@ const SERVICE_ICONS: Record<ServiceIconKey, React.ComponentType<{ className?: st
   instagramGrow: InstagramGrowIcon,
   telegramPremium: TelegramPremiumIcon,
   instagramUnlock: InstagramUnlockIcon,
+  instagram: InstagramIcon,
   pubgUc: PubgUcIcon,
 };
 
@@ -104,9 +106,7 @@ export function HomePage({ onNav, onOpenService, onBuyPhone }: HomeProps) {
           suffix="/7"
           accent="text-fuchsia-400"
         />
-      </section>
-
-      {/* Phone numbers */}
+      </section>{/* Phone numbers */}
       <section>
         <SectionHeader
           icon={<Phone className="w-5 h-5" />}
@@ -159,7 +159,7 @@ export function HomePage({ onNav, onOpenService, onBuyPhone }: HomeProps) {
               <button
                 key={s.id}
                 onClick={() => onOpenService(s.id)}
-                className={`glass rounded-2xl p-5 text-right hover:border-gold-500/40 transition-all group hover:-translate-y-1 duration-300 bg-gradient-to-br ${s.accent} relative overflow-hidden`}
+                className={"glass rounded-2xl p-5 text-right hover:border-gold-500/40 transition-all group hover:-translate-y-1 duration-300 bg-gradient-to-br " + s.accent + " relative overflow-hidden"}
               >
                 {s.tag && (
                   <span className="absolute top-4 left-4 text-[10px] px-2 py-1 rounded-full gold-gradient text-slate-900 font-bold flex items-center gap-1">
@@ -183,8 +183,7 @@ export function HomePage({ onNav, onOpenService, onBuyPhone }: HomeProps) {
                   <Rating value={s.rating} reviews={s.reviews} size="xs" />
                 </div>
                 <div className="mt-3 flex items-center justify-between">
-                  <span className="gold-text font-display font-black text-lg">
-                    {s.hasQuantity ? `من $${s.unitPrice}` : `$${s.price}`}
+                  <span className="gold-text font-display font-black text-lg">{s.hasQuantity ? 'من $' + s.unitPrice : '$' + s.price}
                   </span>
                   <span className="text-[11px] text-slate-400">{s.unit ?? 'لكل طلب'}</span>
                 </div>
@@ -232,7 +231,7 @@ function StatCard({
 }) {
   return (
     <div className="glass rounded-2xl p-4 sm:p-5 hover:-translate-y-0.5 transition-transform duration-300">
-      <div className={`w-9 h-9 rounded-lg glass flex items-center justify-center mb-3 ${accent}`}>
+      <div className={"w-9 h-9 rounded-lg glass flex items-center justify-center mb-3 " + accent}>
         {icon}
       </div>
       <div className="font-display font-black text-2xl sm:text-3xl text-slate-50 tabular-nums">

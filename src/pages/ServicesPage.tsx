@@ -7,6 +7,7 @@ import {
   InstagramGrowIcon,
   TelegramPremiumIcon,
   InstagramUnlockIcon,
+  InstagramIcon,
   PubgUcIcon,
 } from '@/components/BrandIcons';
 import type { ServiceIconKey } from '@/types';
@@ -20,6 +21,7 @@ const SERVICE_ICONS: Record<ServiceIconKey, React.ComponentType<{ className?: st
   instagramGrow: InstagramGrowIcon,
   telegramPremium: TelegramPremiumIcon,
   instagramUnlock: InstagramUnlockIcon,
+  instagram: InstagramIcon,
   pubgUc: PubgUcIcon,
 };
 
@@ -75,7 +77,7 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
               <button
                 key={s.id}
                 onClick={() => onOpenService(s.id)}
-                className={`glass rounded-2xl p-5 text-right hover:border-gold-500/40 transition-all group hover:-translate-y-1 duration-300 bg-gradient-to-br ${s.accent} relative overflow-hidden`}
+                className={"glass rounded-2xl p-5 text-right hover:border-gold-500/40 transition-all group hover:-translate-y-1 duration-300 bg-gradient-to-br " + s.accent + " relative overflow-hidden"}
               >
                 {s.tag && (
                   <span className="absolute top-4 left-4 text-[10px] px-2 py-1 rounded-full gold-gradient text-slate-900 font-bold flex items-center gap-1">
@@ -89,15 +91,14 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
                 )}
                 <div className="w-12 h-12 rounded-xl glass-strong flex items-center justify-center p-1.5">
                   <Icon className="w-full h-full" />
-                </div>
-                <h3 className="mt-4 font-bold text-slate-50">{s.name}</h3>
+                </div><h3 className="mt-4 font-bold text-slate-50">{s.name}</h3>
                 <p className="text-xs text-slate-400 mt-1 leading-relaxed">{s.description}</p>
                 <div className="mt-3">
                   <Rating value={s.rating} reviews={s.reviews} size="xs" />
                 </div>
                 <div className="mt-3 flex items-center justify-between">
                   <span className="gold-text font-display font-black text-lg">
-                    {s.hasQuantity ? `من $${s.unitPrice}` : `$${s.price}`}
+                    {s.hasQuantity ? 'من $' + s.unitPrice : '$' + s.price}
                   </span>
                   <span className="text-[11px] text-slate-400">{s.unit ?? 'لكل طلب'}</span>
                 </div>
@@ -155,9 +156,11 @@ function TabBtn({
   return (
     <button
       onClick={onClick}
-      className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${
-        active ? 'gold-gradient text-slate-900 shadow-glow' : 'text-slate-400 hover:text-slate-100'
-      }`}
+      className={
+        active
+          ? 'flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all gold-gradient text-slate-900 shadow-glow'
+          : 'flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all text-slate-400 hover:text-slate-100'
+      }
     >
       {icon}
       {children}
