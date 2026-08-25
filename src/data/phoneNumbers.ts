@@ -25,7 +25,7 @@ export const PHONE_COUNTRIES: PhoneCountry[] = [
   { id: 'ru', country: 'روسيا', flag: '🇷🇺', price: 0.8, available: 320, rating: 4.7, reviews: 1800 },
   { id: 'sa', country: 'السعودية', flag: '🇸🇦', price: 2.0, available: 86, rating: 4.8, reviews: 1340 },
   { id: 'ae', country: 'الإمارات', flag: '🇦🇪', price: 2.2, available: 54, rating: 4.8, reviews: 920 },
-  { id: 'eg', country: 'مصر', flag: '🇪🇬', price: 1.2, available: 210, rating: 4.6, reviews: 1650 },
+  { id: 'eg', country: 'مصر', flag: '🇪🇬', price: 1.2, available: 0, rating: 4.6, reviews: 1650 },
   { id: 'de', country: 'ألمانيا', flag: '🇩🇪', price: 1.8, available: 97, rating: 4.9, reviews: 760 },
   { id: 'gb', country: 'بريطانيا', flag: '🇬🇧', price: 2.0, available: 73, rating: 4.8, reviews: 680 },
   { id: 'tr', country: 'تركيا', flag: '🇹🇷', price: 1.3, available: 165, rating: 4.7, reviews: 1120 },

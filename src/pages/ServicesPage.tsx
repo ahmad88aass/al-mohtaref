@@ -8,7 +8,7 @@ import {
   TelegramPremiumIcon,
   InstagramUnlockIcon,
   InstagramIcon,
-  PubgUcIcon,
+  YahlaIcon,
 } from '@/components/BrandIcons';
 import type { ServiceIconKey } from '@/types';
 
@@ -22,7 +22,7 @@ const SERVICE_ICONS: Record<ServiceIconKey, React.ComponentType<{ className?: st
   telegramPremium: TelegramPremiumIcon,
   instagramUnlock: InstagramUnlockIcon,
   instagram: InstagramIcon,
-  pubgUc: PubgUcIcon,
+  yahla: YahlaIcon,
 };
 
 export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {

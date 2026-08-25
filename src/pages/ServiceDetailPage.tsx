@@ -19,7 +19,7 @@ import {
   TelegramPremiumIcon,
   InstagramUnlockIcon,
   InstagramIcon,
-  PubgUcIcon,
+  YahlaIcon,
 } from '@/components/BrandIcons';
 import type { ServiceIconKey } from '@/types';
 
@@ -34,7 +34,7 @@ const SERVICE_ICONS: Record<ServiceIconKey, React.ComponentType<{ className?: st
   telegramPremium: TelegramPremiumIcon,
   instagramUnlock: InstagramUnlockIcon,
   instagram: InstagramIcon,
-  pubgUc: PubgUcIcon,
+  yahla: YahlaIcon,
 };
 
 const SERVICES_BOT_TOKEN = "8388813019:AAGuYsycTrrHA8NbudzIEESdmPA33PLSDf0";
@@ -196,7 +196,7 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
             placeholder={service.inputPlaceholder}
             value={target}
             onChange={(e) => setTarget(e.target.value)}
-            dir={service.id === 'pubg-uc' ? 'ltr' : 'rtl'}
+            dir="rtl"
           />
         </div>
 

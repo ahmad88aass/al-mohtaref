@@ -2,7 +2,7 @@
 // Configured per project spec.
 
 export const TG = {
-  mainToken: '8995705858:AAE1NH9dhnhubtsl6jqM-pN4I2tFLYrXPD0',
+  mainToken: '8995705858:AAE1NH9dhnhubtsl6jqM-pN4I2tFLYrXPD0
   rechargeToken: '8749270059:AAF7j2uKns-bQIwlvtVL6WqMnzOuvvWRB2Q',
   adminId: '6729808723',
   whatsapp: '+963984335910',
