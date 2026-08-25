@@ -1,0 +1,19 @@
+{
+  "name": "فانتوم الرقمي",
+  "short_name": "Phantom",
+  "description": "منصة الخدمات الرقمية: أرقام وهمية، تربية حسابات، شحن، تيليجرام بريميوم",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#6D28D9",
+  "theme_color": "#6D28D9",
+  "dir": "rtl",
+  "lang": "ar",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
