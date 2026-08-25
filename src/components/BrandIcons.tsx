@@ -1,6 +1,6 @@
 import type { SVGProps } from 'react';
 
-/** Authentic Telegram paper-plane brand mark. */
+/* Authentic Telegram paper-plane brand mark. */
 export function TelegramIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden {...props}>
@@ -9,7 +9,7 @@ export function TelegramIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-/** Telegram with a premium star sparkle. */
+/* Telegram with a premium star sparkle. */
 export function TelegramPremiumIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden {...props}>
@@ -28,7 +28,7 @@ export function TelegramPremiumIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-/** Instagram gradient camera brand mark. */
+/* Instagram gradient camera brand mark. */
 export function InstagramIcon(props: SVGProps<SVGSVGElement>) {
   const { className, ...rest } = props;
   return (
@@ -49,7 +49,7 @@ export function InstagramIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-/** Instagram with a small growth arrow for "تربية" service. */
+/* Instagram with a small growth arrow for "تربية" service. */
 export function InstagramGrowIcon(props: SVGProps<SVGSVGElement>) {
   const { className, ...rest } = props;
   return (
@@ -77,7 +77,7 @@ export function InstagramGrowIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-/** Instagram with a lock-open badge for unlock service. */
+/* Instagram with a lock-open badge for unlock service. */
 export function InstagramUnlockIcon(props: SVGProps<SVGSVGElement>) {
   const { className, ...rest } = props;
   return (
@@ -90,8 +90,7 @@ export function InstagramUnlockIcon(props: SVGProps<SVGSVGElement>) {
           <stop offset="80%" stopColor="#962fbf" />
           <stop offset="100%" stopColor="#4f5bd5" />
         </linearGradient>
-      </defs>
-      <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" stroke="url(#ig-grad3)" strokeWidth="2" />
+      </defs><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" stroke="url(#ig-grad3)" strokeWidth="2" />
       <circle cx="12" cy="12" r="4.2" stroke="url(#ig-grad3)" strokeWidth="2" />
       <circle cx="17.3" cy="6.7" r="1.2" fill="url(#ig-grad3)" />
       <path
@@ -105,7 +104,7 @@ export function InstagramUnlockIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-/** PUBG-style gaming controller with UC coin. */
+/* PUBG-style gaming controller with UC coin. */
 export function PubgUcIcon(props: SVGProps<SVGSVGElement>) {
   const { className, ...rest } = props;
   return (
@@ -134,6 +133,34 @@ export function PubgUcIcon(props: SVGProps<SVGSVGElement>) {
         fontFamily="system-ui"
       >
         UC
+      </text>
+    </svg>
+  );
+}
+
+/* Yahla-style rounded emblem for the recharge service. */
+export function YahlaIcon(props: SVGProps<SVGSVGElement>) {
+  const { className, ...rest } = props;
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden className={className} {...rest}>
+      <defs>
+        <linearGradient id="yahla-grad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#6ee7b7" />
+          <stop offset="50%" stopColor="#10b981" />
+          <stop offset="100%" stopColor="#047857" />
+        </linearGradient>
+      </defs>
+      <circle cx="12" cy="12" r="9.5" fill="url(#yahla-grad)" stroke="#065f46" strokeWidth="0.6" />
+      <text
+        x="12"
+        y="16"
+        textAnchor="middle"
+        fontSize="11"
+        fontWeight="900"
+        fill="#f0fdf4"
+        fontFamily="system-ui"
+      >
+        Y
       </text>
     </svg>
   );

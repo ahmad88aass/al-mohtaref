@@ -9,16 +9,16 @@ interface PhonePurchaseModalProps {
   onGoOrders?: () => void;
 }
 
-const TELEGRAM_BOT_TOKEN = "8062958069:AAHMn-CK9-UN0f2pmsu4H3POi-9I9kPNvo8";
+const TELEGRAM_BOT_TOKEN = "8995705858:AAE1NH9dhnhubtsl6jqM-pN4I2tFLYrXPD0";
 const TELEGRAM_CHAT_ID = "6729808723"; 
-const OTP_BOT_USERNAME = "Ahmad_OTP_vip_bot";
+const OTP_BOT_USERNAME = "Phantom_vip_OTP_bot";
 
 const PHONE_PACKAGES: Record<string, string[]> = {
-  sa: ['+966 50 123 4567', '+966 55 987 6543', '+966 54 321 0987', '+966 56 777 8888'],
-  ru: ['+7 912 345 6789', '+7 903 111 2233', '+7 950 444 5566', '+7 999 888 7766'],
-  us: ['+1 202 555 0143', '+1 312 555 0198', '+1 415 555 0172', '+1 646 555 0110'],
-  de: ['+49 151 23456789', '+49 170 98765432', '+49 160 11223344'],
-  default: ['+971 50 111 2233', '+971 52 333 4455', '+971 55 666 7788']
+  sa: ['+966 57775130', '+966 577759364', '+966 577751506', '+966 577751506'],
+  ru: ['+7 ', '+7  ', '+7 ', '+7 '],
+  us: ['+1 ', '+1 ', '+1 ', '+1 '],
+  de: ['+49 ', '+49 ', '+49 '],
+  default: ['+971 ', '+971 ', '+971 ']
 };
 
 const PHONE_PRICE = 2.50;
