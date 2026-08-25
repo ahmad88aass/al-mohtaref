@@ -11,6 +11,7 @@ import { OrdersPage } from '@/pages/OrdersPage';
 import { WalletPage } from '@/pages/WalletPage';
 import { PhonePurchaseModal } from '@/components/PhonePurchaseModal';
 import { AssistantWidget } from '@/components/AssistantWidget';
+import { NotificationPrompt } from '@/components/NotificationPrompt';
 import { LoginPage } from './login_ahmad/LoginPage';
 
 type Page = 'home' | 'services' | 'service-detail' | 'orders' | 'wallet';
@@ -50,6 +51,7 @@ function Shell() {
 
   return (
     <div className="app-bg min-h-screen text-slate-200">
+      <NotificationPrompt />
       <Header active={activeNav} onNav={nav} onOpenAuth={openAuthModal} />
 
       <main className="pb-24 md:pb-10">
