@@ -26,7 +26,7 @@ export const SERVICES: ServiceItem[] = [
     inputPlaceholder: 'e.g. username',
     hasQuantity: true,
     quantityLabel: 'عدد المتابعين (بالآلاف)',
-    unitPrice: 5,
+    unitPrice: 12,
     unitAmount: 1000,
     accent: 'from-pink-500/10 to-purple-600/10 border-pink-500/20',
     rating: 15,
