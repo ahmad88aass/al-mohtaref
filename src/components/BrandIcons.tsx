@@ -1,167 +1,125 @@
-import type { SVGProps } from 'react';
+// src/components/BrandIcons.tsx
 
-/* Authentic Telegram paper-plane brand mark. */
-export function TelegramIcon(props: SVGProps<SVGSVGElement>) {
+export function InstagramGrowIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden {...props}>
-      <path d="M21.94 4.6 18.9 19.2c-.23 1.02-.84 1.27-1.7.79l-4.7-3.47-2.27 2.19c-.25.25-.46.46-.94.46l.33-4.79 8.73-7.89c.38-.34-.08-.53-.59-.19L7.3 13.09 2.67 11.64c-1-.31-1.02-1 .21-1.48l17.86-6.88c.83-.31 1.56.19 1.2 1.32z" />
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
     </svg>
   );
 }
 
-/* Telegram with a premium star sparkle. */
-export function TelegramPremiumIcon(props: SVGProps<SVGSVGElement>) {
+export function TelegramPremiumIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden {...props}>
-      <path
-        d="M21.94 4.6 18.9 19.2c-.23 1.02-.84 1.27-1.7.79l-4.7-3.47-2.27 2.19c-.25.25-.46.46-.94.46l.33-4.79 8.73-7.89c.38-.34-.08-.53-.59-.19L7.3 13.09 2.67 11.64c-1-.31-1.02-1 .21-1.48l17.86-6.88c.83-.31 1.56.19 1.2 1.32z"
-        fill="currentColor"
-      />
-      <path
-        d="M18.5 13.2l-.5 2.4 1.8 1.6-2.4.5-1 2.2-1-2.2-2.4-.5 1.8-1.6-.5-2.4 2.1 1z"
-        fill="#fbbf24"
-        stroke="#0f172a"
-        strokeWidth="0.4"
-        strokeLinejoin="round"
-      />
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="m22 2-7 20-4-9-9-4Z"/>
+      <path d="M22 2 11 13"/>
     </svg>
   );
 }
 
-/* Instagram gradient camera brand mark. */
-export function InstagramIcon(props: SVGProps<SVGSVGElement>) {
-  const { className, ...rest } = props;
+export function InstagramUnlockIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden className={className} {...rest}>
-      <defs>
-        <linearGradient id="ig-grad" x1="0" y1="1" x2="1" y2="0">
-          <stop offset="0%" stopColor="#feda75" />
-          <stop offset="30%" stopColor="#fa7e1e" />
-          <stop offset="55%" stopColor="#d62976" />
-          <stop offset="80%" stopColor="#962fbf" />
-          <stop offset="100%" stopColor="#4f5bd5" />
-        </linearGradient>
-      </defs>
-      <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" stroke="url(#ig-grad)" strokeWidth="2" />
-      <circle cx="12" cy="12" r="4.5" stroke="url(#ig-grad)" strokeWidth="2" />
-      <circle cx="17.3" cy="6.7" r="1.3" fill="url(#ig-grad)" />
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+      <path d="M7 11V7a5 5 0 0 1 9.9-1"/>
     </svg>
   );
 }
 
-/* Instagram with a small growth arrow for "تربية" service. */
-export function InstagramGrowIcon(props: SVGProps<SVGSVGElement>) {
-  const { className, ...rest } = props;
+export function InstagramIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden className={className} {...rest}>
-      <defs>
-        <linearGradient id="ig-grad2" x1="0" y1="1" x2="1" y2="0">
-          <stop offset="0%" stopColor="#feda75" />
-          <stop offset="30%" stopColor="#fa7e1e" />
-          <stop offset="55%" stopColor="#d62976" />
-          <stop offset="80%" stopColor="#962fbf" />
-          <stop offset="100%" stopColor="#4f5bd5" />
-        </linearGradient>
-      </defs>
-      <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" stroke="url(#ig-grad2)" strokeWidth="2" />
-      <circle cx="12" cy="12" r="4.2" stroke="url(#ig-grad2)" strokeWidth="2" />
-      <circle cx="17.3" cy="6.7" r="1.2" fill="url(#ig-grad2)" />
-      <path
-        d="M15 9l3-3m0 0h-2.2M18 6v2.2"
-        stroke="#34d399"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
     </svg>
   );
 }
 
-/* Instagram with a lock-open badge for unlock service. */
-export function InstagramUnlockIcon(props: SVGProps<SVGSVGElement>) {
-  const { className, ...rest } = props;
+export function YahlaIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden className={className} {...rest}>
-      <defs>
-        <linearGradient id="ig-grad3" x1="0" y1="1" x2="1" y2="0">
-          <stop offset="0%" stopColor="#feda75" />
-          <stop offset="30%" stopColor="#fa7e1e" />
-          <stop offset="55%" stopColor="#d62976" />
-          <stop offset="80%" stopColor="#962fbf" />
-          <stop offset="100%" stopColor="#4f5bd5" />
-        </linearGradient>
-      </defs><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" stroke="url(#ig-grad3)" strokeWidth="2" />
-      <circle cx="12" cy="12" r="4.2" stroke="url(#ig-grad3)" strokeWidth="2" />
-      <circle cx="17.3" cy="6.7" r="1.2" fill="url(#ig-grad3)" />
-      <path
-        d="M9.5 15.5h5M12 15.5v2.2"
-        stroke="#fbbf24"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <div className={className + " rounded-xl bg-gradient-to-tr from-pink-500 to-purple-600 flex items-center justify-center text-white font-black text-xs shadow-md"}>
+      YH
+    </div>
   );
 }
 
-/* PUBG-style gaming controller with UC coin. */
-export function PubgUcIcon(props: SVGProps<SVGSVGElement>) {
-  const { className, ...rest } = props;
+export function PubgUcIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden className={className} {...rest}>
-      <defs>
-        <linearGradient id="uc-grad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#fde68a" />
-          <stop offset="100%" stopColor="#f59e0b" />
-        </linearGradient>
-      </defs>
-      <path
-        d="M6 9h2v6H6a3 3 0 010-6zm12 0h-2v6h2a3 3 0 000-6z"
-        fill="#1e293b"
-        stroke="#475569"
-        strokeWidth="1.2"
-      />
-      <path d="M8 9h8v6H8z" fill="#0f172a" stroke="#475569" strokeWidth="1.2" />
-      <circle cx="12" cy="12" r="3.2" fill="url(#uc-grad)" stroke="#92400e" strokeWidth="0.6" />
-      <text
-        x="12"
-        y="13.8"
-        textAnchor="middle"
-        fontSize="3.4"
-        fontWeight="900"
-        fill="#7c2d12"
-        fontFamily="system-ui"
-      >
-        UC
-      </text>
-    </svg>
+    <div className={className + " rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-300 flex items-center justify-center text-slate-950 font-black text-xs shadow-md"}>
+      UC
+    </div>
   );
 }
 
-/* Yahla-style rounded emblem for the recharge service. */
-export function YahlaIcon(props: SVGProps<SVGSVGElement>) {
-  const { className, ...rest } = props;
+export function YoHoIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden className={className} {...rest}>
-      <defs>
-        <linearGradient id="yahla-grad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#6ee7b7" />
-          <stop offset="50%" stopColor="#10b981" />
-          <stop offset="100%" stopColor="#047857" />
-        </linearGradient>
-      </defs>
-      <circle cx="12" cy="12" r="9.5" fill="url(#yahla-grad)" stroke="#065f46" strokeWidth="0.6" />
-      <text
-        x="12"
-        y="16"
-        textAnchor="middle"
-        fontSize="11"
-        fontWeight="900"
-        fill="#f0fdf4"
-        fontFamily="system-ui"
-      >
-        Y
-      </text>
-    </svg>
+    <div className={className + " rounded-xl bg-emerald-500 flex items-center justify-center text-white font-black text-[10px] shadow-md overflow-hidden p-1"}>
+      YoHo
+    </div>
+  );
+}
+
+export function YaahlanIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <div className={className + " rounded-xl bg-purple-600 flex items-center justify-center text-white font-bold text-[10px] shadow-md"}>
+      Yaah
+    </div>
+  );
+}
+
+export function HalaMiIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <div className={className + " rounded-xl bg-fuchsia-600 flex items-center justify-center text-white font-bold text-[10px] shadow-md"}>
+      Hala
+    </div>
+  );
+}
+
+export function AhlanIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <div className={className + " rounded-xl bg-amber-400 flex items-center justify-center text-slate-900 font-bold text-[10px] shadow-md"}>
+      Ahlan
+    </div>
+  );
+}
+
+export function KarniLiveIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <div className={className + " rounded-xl bg-slate-900 border border-purple-500/50 flex items-center justify-center text-purple-400 font-bold text-[9px] shadow-md"}>
+      LIVE
+    </div>
+  );
+}
+
+export function YoyoLiveIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <div className={className + " rounded-xl bg-cyan-400 flex items-center justify-center text-slate-950 font-black text-xs shadow-md"}>
+      YO!
+    </div>
+  );
+}
+
+export function HiyyaLiveIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <div className={className + " rounded-xl bg-pink-400 flex items-center justify-center text-white font-bold text-[10px] shadow-md"}>
+      Hiyya
+    </div>
+  );
+}export function TiktokGrowIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <div className={className + " rounded-xl bg-gradient-to-tr from-cyan-400 to-rose-500 flex items-center justify-center text-white font-black text-[10px] shadow-md"}>
+      TT
+    </div>
+  );
+}
+
+export function UsdtCoinIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <div className={className + " rounded-xl bg-emerald-500 flex items-center justify-center text-white font-black text-xs shadow-md"}>
+      USDT
+    </div>
   );
 }

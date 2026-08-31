@@ -24,8 +24,17 @@ export type ServiceIconKey =
   | 'telegramPremium'
   | 'instagramUnlock'
   | 'instagram'
-  | 'yahlan'
-  | 'pubgUc';
+  | 'yahla'
+  | 'yoho'
+  | 'yaahlan'
+  | 'halami'
+  | 'ahlan'
+  | 'karnilive'
+  | 'yoyolive'
+  | 'hiyjalive'
+  | 'pubgUc'
+  | 'tiktokGrow'
+  | 'usdtCoin';
 
 export interface ServiceItem {
   id: string;

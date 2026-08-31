@@ -1,3 +1,6 @@
+#!/bin/bash
+set -e
+cat > src/components/PhonePurchaseModal.tsx << 'MODAL_EOF'
 import React, { useState, useEffect, useRef } from 'react';
 import { ShoppingCart, Check, RefreshCw, AlertCircle, Copy } from 'lucide-react';
 import { useAuth } from '../store/AuthContext';
@@ -227,3 +230,7 @@ export const PhonePurchaseModal: React.FC<PhonePurchaseModalProps> = ({
   );
 };
 
+MODAL_EOF
+echo "PhonePurchaseModal.tsx updated successfully"
+echo "|| count: $(grep -o '||' src/components/PhonePurchaseModal.tsx | wc -l)"
+echo "lines: $(wc -l < src/components/PhonePurchaseModal.tsx)"

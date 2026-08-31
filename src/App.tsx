@@ -20,6 +20,7 @@ function Shell() {
   const [page, setPage] = useState<Page>('home');
   const [serviceId, setServiceId] = useState<string | null>(null);
   const [phoneCountryId, setPhoneCountryId] = useState<string | null>(null);
+  const [activeService, setActiveService] = useState<{ code: string; label: string }>({ code: 'tg2', label: 'Telegram' });
   const { isAuthModalOpen, closeAuthModal, openAuthModal } = useAuth();
 
   const nav = (p: string) => {
@@ -33,7 +34,11 @@ function Shell() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const buyPhone = (countryId: string) => {
+  const buyPhone = (countryId: string, serviceCode?: string, serviceLabel?: string) => {
+    setActiveService({
+      code: serviceCode ? serviceCode : 'tg2',
+      label: serviceLabel ? serviceLabel : 'Telegram',
+    });
     setPhoneCountryId(countryId);
   };
 
@@ -76,6 +81,8 @@ function Shell() {
 
       <PhonePurchaseModal
         countryId={phoneCountryId}
+        serviceCode={activeService.code}
+        serviceLabel={activeService.label}
         onClose={() => setPhoneCountryId(null)}
         onGoOrders={() => nav('orders')}
       />

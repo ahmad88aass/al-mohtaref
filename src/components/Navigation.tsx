@@ -1,6 +1,5 @@
 import React from 'react';
 import { Wallet, UserCircle2, Home, Sparkles, ClipboardList, LogIn, LogOut } from 'lucide-react';
-import { PentagonLogo } from './PentagonLogo';
 import { useStore } from '../store/StoreContext';
 import { useAuth } from '../store/AuthContext';
 
@@ -35,10 +34,19 @@ export function Header({ active, onNav, onOpenAuth }: HeaderProps) {
           onClick={() => onNav('home')}
           className="flex items-center gap-2.5 group shrink-0"
         >
-          <PentagonLogo className="w-9 h-9" />
+          <img 
+            src="/1000243026.png" 
+            alt="Phantom" 
+            className="w-10 h-10 rounded-xl object-cover border border-purple-500/30 shadow-md"
+            onError={(e) => {
+              // Fallback if image path differs slightly
+              (e.target as HTMLImageElement).src = './1000243026.png';
+            }}
+          />
           <div className="text-right leading-tight">
-            <div className="font-bold text-base text-slate-50">المحترف</div>
-            <div className="text-[10px] text-amber-400 font-medium">Al-Mohtaref</div>
+            <div className="font-display font-black text-lg bg-gradient-to-r from-purple-400 via-cyan-300 to-indigo-400 bg-clip-text text-transparent tracking-wide">
+              Phantom
+            </div>
           </div>
         </button>
 
@@ -84,12 +92,10 @@ export function Header({ active, onNav, onOpenAuth }: HeaderProps) {
               <span className="hidden sm:inline">دخول</span>
             </button>
           )}
-
           {isAuthenticated && (
             <button
               onClick={() => signOut()}
-              className="flex items-center gap-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 px-3 py-2 rounded-xl text-xs font-bold transition"
-              title="تسجيل خروج"
+              className="flex items-center gap-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 px-3 py-2 rounded-xl text-xs font-bold transition"title="تسجيل خروج"
             >
               <LogOut className="w-4 h-4" />
             </button>
@@ -98,7 +104,9 @@ export function Header({ active, onNav, onOpenAuth }: HeaderProps) {
       </div>
     </header>
   );
-}export function BottomNav({ active, onNav }: HeaderProps) {
+}
+
+export function BottomNav({ active, onNav }: HeaderProps) {
   const items = [
     { key: 'home', label: 'الرئيسية', icon: 'Home' },
     { key: 'services', label: 'الخدمات', icon: 'Sparkles' },

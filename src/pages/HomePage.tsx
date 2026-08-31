@@ -23,6 +23,14 @@ import {
   InstagramUnlockIcon,
   InstagramIcon,
   YahlaIcon,
+  PubgUcIcon,
+  YoHoIcon,
+  YaahlanIcon,
+  HalaMiIcon,
+  AhlanIcon,
+  KarniLiveIcon,
+  YoyoLiveIcon,
+  HiyyaLiveIcon,
 } from '@/components/BrandIcons';
 import type { ServiceIconKey } from '@/types';
 
@@ -38,6 +46,14 @@ const SERVICE_ICONS: Record<ServiceIconKey, React.ComponentType<{ className?: st
   instagramUnlock: InstagramUnlockIcon,
   instagram: InstagramIcon,
   yahla: YahlaIcon,
+  pubgUc: PubgUcIcon,
+  yoho: YoHoIcon,
+  yaahlan: YaahlanIcon,
+  halami: HalaMiIcon,
+  ahlan: AhlanIcon,
+  karnilive: KarniLiveIcon,
+  yoyolive: YoyoLiveIcon,
+  hiyjalive: HiyyaLiveIcon,
 };
 
 const HERO_IMAGES = ['/banner/slide1.jpg', '/banner/slide2.jpg'];
@@ -113,8 +129,7 @@ function SectionHeader({
           {icon}
         </div>
         <div>
-          <h2 className="font-display font-extrabold text-xl sm:text-2xl text-slate-50">{title}</h2>
-          <p className="text-xs sm:text-sm text-slate-400 mt-0.5">{subtitle}</p>
+          <h2 className="font-display font-extrabold text-xl sm:text-2xl text-slate-50">{title}</h2><p className="text-xs sm:text-sm text-slate-400 mt-0.5">{subtitle}</p>
         </div>
       </div>
       <button
@@ -126,7 +141,9 @@ function SectionHeader({
       </button>
     </div>
   );
-}function StatCard({
+}
+
+function StatCard({
   icon,
   label,
   value,
@@ -226,17 +243,16 @@ export function HomePage({ onNav, onOpenService, onBuyPhone }: HomeProps) {
             </div>
           ))}
         </div>
-      </section>
-
-      {/* Digital services */}
+      </section>{/* Digital services */}
       <section>
         <SectionHeader
           icon={<TrendingUp className="w-5 h-5" />}
           title="الخدمات الرقمية"
-          subtitle="تربية انستغرام، تيليجرام بريميوم، فك حسابات، شحن Yahla"
+          subtitle="شحن شدات ببجي، خدمات الدردشة، وتربية انستغرام وتيليجرام"
           onAll={() => onNav('services')}
         />
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 stagger">{SERVICES.map((s) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 stagger">
+          {SERVICES.map((s) => {
             const Icon = SERVICE_ICONS[s.icon] ?? InstagramGrowIcon;
             return (
               <button
@@ -266,7 +282,8 @@ export function HomePage({ onNav, onOpenService, onBuyPhone }: HomeProps) {
                   <Rating value={s.rating} reviews={s.reviews} size="xs" />
                 </div>
                 <div className="mt-3 flex items-center justify-between">
-                  <span className="gold-text font-display font-black text-lg">{s.hasQuantity ? 'من $' + s.unitPrice : '$' + s.price}
+                  <span className="gold-text font-display font-black text-lg">
+                    {s.hasQuantity ? 'من $' + s.unitPrice : '$' + s.price}
                   </span>
                   <span className="text-[11px] text-slate-400">{s.unit ?? 'لكل طلب'}</span>
                 </div>

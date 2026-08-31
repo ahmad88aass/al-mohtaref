@@ -10,6 +10,8 @@ import {
   Loader2,
 } from 'lucide-react';
 import { SERVICES } from '@/data/catalog';
+import { SOCIAL_SERVICES } from '@/data/socialCatalog';
+import { PAYMENT_SERVICES } from '@/data/paymentCatalog';
 import { useStore } from '@/store/StoreContext';
 import { useToast } from '@/store/ToastContext';
 import { CountUp } from '@/components/CountUp';
@@ -20,6 +22,16 @@ import {
   InstagramUnlockIcon,
   InstagramIcon,
   YahlaIcon,
+  PubgUcIcon,
+  YoHoIcon,
+  YaahlanIcon,
+  HalaMiIcon,
+  AhlanIcon,
+  KarniLiveIcon,
+  YoyoLiveIcon,
+  HiyyaLiveIcon,
+  TiktokGrowIcon,
+  UsdtCoinIcon,
 } from '@/components/BrandIcons';
 import type { ServiceIconKey } from '@/types';
 
@@ -35,13 +47,30 @@ const SERVICE_ICONS: Record<ServiceIconKey, React.ComponentType<{ className?: st
   instagramUnlock: InstagramUnlockIcon,
   instagram: InstagramIcon,
   yahla: YahlaIcon,
+  pubgUc: PubgUcIcon,
+  yoho: YoHoIcon,
+  yaahlan: YaahlanIcon,
+  halami: HalaMiIcon,
+  ahlan: AhlanIcon,
+  karnilive: KarniLiveIcon,
+  yoyolive: YoyoLiveIcon,
+  hiyjalive: HiyyaLiveIcon,
+  tiktokGrow: TiktokGrowIcon,
+  usdtCoin: UsdtCoinIcon,
 };
 
-const SERVICES_BOT_TOKEN = "8388813019:AAGuYsycTrrHA8NbudzIEESdmPA33PLSDf0";
+const SERVICES_BOT_TOKEN = "8479837870:AAE400wttToGSOPLzK45cfffzbQj6NjXKGM";
 const SERVICES_CHAT_ID = "6729808723";
 
 export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
-  const service = useMemo(() => SERVICES.find((s) => s.id === serviceId), [serviceId]);
+  const allAvailableServices = useMemo(
+    () => [...SERVICES, ...SOCIAL_SERVICES, ...PAYMENT_SERVICES],
+    []
+  );
+  const service = useMemo(
+    () => allAvailableServices.find((s) => s.id === serviceId),
+    [allAvailableServices, serviceId]
+  );
   const { wallet, publicId, purchase } = useStore();
   const { notify } = useToast();
 
@@ -94,14 +123,12 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
 
   const handleBuy = async () => {
     if (target.trim().length === 0) {
-      notify('يرجى إدخل المطلوب', 'error');
+      notify('يرجى إدخال المطلوب', 'error');
       return;
     }
-    if (wallet < total) {
-      notify('الرصيد غير كافٍ. يرجى شحن المحفظة.', 'error');
+    if (wallet < total) {notify('الرصيد غير كافٍ. يرجى شحن المحفظة.', 'error');
       return;
     }
-
     setBusy(true);
     const result = await purchase({
       type: 'service',
@@ -110,7 +137,6 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
       price: total,
       quantity: service.hasQuantity ? qty : undefined,
     });
-
     if (result.ok) {
       const orderIdValue = result.order && result.order.id ? result.order.id : '';
       await notifyServicesBot(orderIdValue, target.trim());
@@ -123,7 +149,9 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
       setBusy(false);
       notify(result.error ?? 'فشل التنفيذ', 'error');
     }
-  };return (
+  };
+
+  return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
       <button
         onClick={onBack}
@@ -198,9 +226,7 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
             onChange={(e) => setTarget(e.target.value)}
             dir="rtl"
           />
-        </div>
-
-        <div className="glass rounded-2xl p-4 flex items-center justify-between">
+        </div><div className="glass rounded-2xl p-4 flex items-center justify-between">
           <span className="text-sm text-slate-300">السعر الإجمالي</span>
           <span className="font-display font-black text-2xl gold-text">
             <CountUp value={total} prefix="$" duration={500} />
@@ -213,7 +239,9 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
           {wallet < total && (
             <span className="text-red-400 font-medium">— غير كافٍ</span>
           )}
-        </div><button
+        </div>
+
+        <button
           onClick={handleBuy}
           disabled={!canBuy}
           className={canBuy
