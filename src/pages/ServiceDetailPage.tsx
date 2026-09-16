@@ -1,8 +1,6 @@
 import { useMemo, useState } from 'react';
 import {
   ArrowRight,
-  Minus,
-  Plus,
   ShoppingBag,
   Wallet,
   CheckCircle2,
@@ -75,7 +73,6 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
   const { notify } = useToast();
 
   const [target, setTarget] = useState('');
-  const [qty, setQty] = useState(1);
   const [busy, setBusy] = useState(false);
 
   if (!service) {
@@ -88,9 +85,9 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
   }
 
   const Icon = SERVICE_ICONS[service.icon] ?? InstagramGrowIcon;
-  const unitPrice = service.unitPrice ?? service.price;
-  const total = Math.round(unitPrice * qty * 100) / 100;
-  const totalUc = service.unitAmount ? service.unitAmount * qty : undefined;
+  
+  // السعر ثابت بناءً على سعر الخدمة المعرف مباشرة
+  const total = service.price;
   const canBuy = target.trim().length > 0 && wallet >= total && !busy;
 
   const notifyServicesBot = async (orderId: string, targetValue: string) => {
@@ -126,16 +123,16 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
       notify('يرجى إدخال المطلوب', 'error');
       return;
     }
-    if (wallet < total) {notify('الرصيد غير كافٍ. يرجى شحن المحفظة.', 'error');
+    if (wallet < total) {
+      notify('الرصيد غير كافٍ. يرجى شحن المحفظة.', 'error');
       return;
     }
     setBusy(true);
     const result = await purchase({
-      type: 'service',
-      serviceName: service.name,
+      type: 'service',serviceName: service.name,
       target: target.trim(),
       price: total,
-      quantity: service.hasQuantity ? qty : undefined,
+      quantity: 1,
     });
     if (result.ok) {
       const orderIdValue = result.order && result.order.id ? result.order.id : '';
@@ -143,7 +140,6 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
       setBusy(false);
       notify('سيتم معالجة طلبك خلال دقائق', 'success');
       setTarget('');
-      setQty(1);
       onGoOrders();
     } else {
       setBusy(false);
@@ -186,35 +182,6 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
       </div>
 
       <div className="mt-6 glass rounded-3xl p-6 sm:p-8 space-y-5 animate-fade-in">
-        {service.hasQuantity && (
-          <div>
-            <label className="block text-sm font-semibold text-slate-200 mb-2">
-              {service.quantityLabel}
-            </label>
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => setQty((q) => Math.max(1, q - 1))}
-                className="w-11 h-11 rounded-xl glass flex items-center justify-center hover:border-gold-500/40 transition-colors"
-                disabled={qty <= 1}
-              >
-                <Minus className="w-4 h-4 text-slate-200" />
-              </button>
-              <div className="flex-1 text-center">
-                <div className="font-display font-black text-2xl text-slate-50">{qty}</div>
-                <div className="text-[11px] text-slate-400">
-                  {totalUc ? totalUc.toLocaleString('en-US') + ' شدة' : 'باقة'}
-                </div>
-              </div>
-              <button
-                onClick={() => setQty((q) => Math.min(100, q + 1))}
-                className="w-11 h-11 rounded-xl glass flex items-center justify-center hover:border-gold-500/40 transition-colors"
-              >
-                <Plus className="w-4 h-4 text-slate-200" />
-              </button>
-            </div>
-          </div>
-        )}
-
         <div>
           <label className="block text-sm font-semibold text-slate-200 mb-2">
             {service.inputLabel}
@@ -226,7 +193,9 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
             onChange={(e) => setTarget(e.target.value)}
             dir="rtl"
           />
-        </div><div className="glass rounded-2xl p-4 flex items-center justify-between">
+        </div>
+
+        <div className="glass rounded-2xl p-4 flex items-center justify-between">
           <span className="text-sm text-slate-300">السعر الإجمالي</span>
           <span className="font-display font-black text-2xl gold-text">
             <CountUp value={total} prefix="$" duration={500} />
@@ -257,9 +226,7 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
               شراء الآن
             </>
           )}
-        </button>
-
-        <div className="flex items-start gap-2 text-xs text-slate-400 leading-relaxed">
+        </button><div className="flex items-start gap-2 text-xs text-slate-400 leading-relaxed">
           <Info className="w-3.5 h-3.5 mt-0.5 shrink-0 text-sky-400" />
           سيتم تنفيذ طلبك فور تأكيده وإرسال إشعار للدعم. لا يمكن إلغاء الطلب بعد بدء المعالجة.
         </div>

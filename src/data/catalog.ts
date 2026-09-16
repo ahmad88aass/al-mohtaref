@@ -20,7 +20,7 @@ export const SERVICES: ServiceItem[] = [
     name:'تطيير حسابات انستكرام 🔥',
     description: 'زيادة تفاعل ونمو حسابك الانستغرام بطرق آمنة وسريعة',
     price: 12,
-    unit: 'لكل 1000',
+    unit: ' 1',
     icon: 'instagramGrow',
     inputLabel: 'يوزر الحساب',
     inputPlaceholder: 'e.g. username',

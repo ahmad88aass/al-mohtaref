@@ -3,13 +3,13 @@ import webpush from 'web-push';
 import { createClient } from '@supabase/supabase-js';
 import readline from 'readline';
 
-const supabaseUrl = 'https://hbmkrmretanoxqrwugtq.supabase.co';
+const supabaseUrl = process.env.VITE_SUPABASE_URL;
 const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 const supabase = createClient(supabaseUrl, serviceRoleKey);
 
 webpush.setVapidDetails(
-  'mailto:admin@example.com',
+  'mailto:ahmadnaser2003@gmail.com',
   process.env.VITE_VAPID_PUBLIC_KEY,
   process.env.VAPID_PRIVATE_KEY
 );
@@ -26,8 +26,6 @@ function ask(question) {
 }
 
 async function main() {
-  console.log('SERVICE KEY LENGTH: ' + (serviceRoleKey ? serviceRoleKey.length : 0));
-
   const title = await ask('عنوان الإشعار: ');
   const body = await ask('نص الإشعار: ');
   rl.close();
@@ -37,7 +35,7 @@ async function main() {
     .select('*');
 
   if (error) {
-    console.log('خطأ بجلب المشتركين:', error.message);
+    console.log('خطأ بجلب المشتركين:', error);
     return;
   }
 
@@ -77,7 +75,7 @@ async function main() {
         await supabase.from('push_subscriptions').delete().eq('id', sub.id);
         console.log('اشتراك منتهي تم حذفه: ' + sub.id);
       } else {
-        console.log('فشل الإرسال لـ ' + sub.id + ': ' + err.message);
+        console.log('فشل الإرسال: ' + err.message);
       }
     }
   }

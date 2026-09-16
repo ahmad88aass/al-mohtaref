@@ -6,6 +6,7 @@ import {
   Info,
 } from 'lucide-react';
 import { useStore } from '@/store/StoreContext';
+import { AlternativePaymentMethods } from '@/components/AlternativePaymentMethods';
 
 interface Props {
   onGoServices: () => void;
@@ -40,7 +41,7 @@ export function WalletPage({ onGoServices }: Props) {
             ${wallet.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </div>
           <div className="mt-3 flex items-center gap-2 text-xs text-slate-500">
-            <span className="font-mono text-slate-400">{publicId || '—'}</span>
+            <span className="font-mono text-slate-400">{publicId ? publicId : '—'}</span>
             <span>•</span>
             <span>رصيدك الفعلي المحفوظ في قاعدة البيانات</span>
           </div>
@@ -70,11 +71,13 @@ export function WalletPage({ onGoServices }: Props) {
         <p className="text-xs text-slate-500" dir="ltr">@{AGENT_USERNAME}</p>
       </div>
 
+      <AlternativePaymentMethods />
+
       <div className="glass rounded-2xl p-5 flex items-start gap-3">
         <Info className="w-4 h-4 text-sky-400 mt-0.5 shrink-0" />
         <p className="text-xs text-slate-400 leading-relaxed">
           لا يتم إضافة أي رصيد تلقائياً — الشحن يتم فقط بعد التأكد من استلام الدفعة من الوكيل
-          المعتمد. احرص على إرسال معرفك الخاص ({publicId || '—'}) عند التواصل لتسريع العملية.
+          المعتمد. احرص على إرسال معرفك الخاص ({publicId ? publicId : '—'}) عند التواصل لتسريع العملية.
         </p>
       </div>
 
