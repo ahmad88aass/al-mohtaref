@@ -20,6 +20,7 @@ export interface Order {
 
 /** Identifies which custom icon component to render for a service. */
 export type ServiceIconKey =
+  | 'gemini'
   | 'instagramGrow'
   | 'telegramPremium'
   | 'instagramUnlock'

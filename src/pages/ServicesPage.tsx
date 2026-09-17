@@ -6,6 +6,7 @@ import { SOCIAL_SERVICES } from '@/data/socialCatalog';
 import { PAYMENT_SERVICES } from '@/data/paymentCatalog';
 import { Rating } from '@/components/Rating';
 import {
+  GeminiIcon,
   InstagramGrowIcon,
   TelegramPremiumIcon,
   InstagramUnlockIcon,
@@ -30,6 +31,7 @@ interface ServicesProps {
 }
 
 const SERVICE_ICONS: Record<ServiceIconKey, React.ComponentType<{ className?: string }>> = {
+  gemini: GeminiIcon,
   instagramGrow: InstagramGrowIcon,
   telegramPremium: TelegramPremiumIcon,
   instagramUnlock: InstagramUnlockIcon,
@@ -103,9 +105,10 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
         />
       </div>
 
-      {tab === 'services' && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 stagger">{filteredServices.map((s) => {
-            const Icon = SERVICE_ICONS[s.icon] ?? InstagramGrowIcon;
+      {tab === 'services' && (<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 stagger">
+          {filteredServices.map((s) => {
+            const Icon = SERVICE_ICONS[s.icon] ? SERVICE_ICONS[s.icon] : InstagramGrowIcon;
+            const isCrown = s.tag === 'الأكثر مبيعاً' ? true : (s.tag === 'الأكثر طلباً' ? true : false);
             return (
               <button
                 key={s.id}
@@ -114,10 +117,7 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
               >
                 {s.tag && (
                   <span className="absolute top-4 left-4 text-[10px] px-2 py-1 rounded-full gold-gradient text-slate-900 font-bold flex items-center gap-1">
-                    {s.tag === 'الأكثر مبيعاً' || s.tag === 'الأكثر طلباً' ? (
-                      <Crown className="w-3 h-3" />) : (
-                      <Star className="w-3 h-3" />
-                    )}
+                    {isCrown ? <Crown className="w-3 h-3" /> : <Star className="w-3 h-3" />}
                     {s.tag}
                   </span>
                 )}
@@ -133,7 +133,7 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
                   <span className="gold-text font-display font-black text-lg">
                     {s.hasQuantity ? 'من $' + s.unitPrice : '$' + s.price}
                   </span>
-                  <span className="text-[11px] text-slate-400">{s.unit ?? 'لكل طلب'}</span>
+                  <span className="text-[11px] text-slate-400">{s.unit ? s.unit : 'لكل طلب'}</span>
                 </div>
               </button>
             );
@@ -145,7 +145,8 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
       {tab === 'social' && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 stagger">
           {filteredSocial.map((s) => {
-            const Icon = SERVICE_ICONS[s.icon] ?? InstagramGrowIcon;
+            const Icon = SERVICE_ICONS[s.icon] ? SERVICE_ICONS[s.icon] : InstagramGrowIcon;
+            const isCrown = s.tag === 'الأكثر مبيعاً' ? true : (s.tag === 'الأكثر طلباً' ? true : false);
             return (
               <button
                 key={s.id}
@@ -154,10 +155,7 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
               >
                 {s.tag && (
                   <span className="absolute top-4 left-4 text-[10px] px-2 py-1 rounded-full gold-gradient text-slate-900 font-bold flex items-center gap-1">
-                    {s.tag === 'الأكثر مبيعاً' || s.tag === 'الأكثر طلباً' ? (
-                      <Crown className="w-3 h-3" />) : (
-                      <Star className="w-3 h-3" />
-                    )}
+                    {isCrown ? <Crown className="w-3 h-3" /> : <Star className="w-3 h-3" />}
                     {s.tag}
                   </span>
                 )}
@@ -171,19 +169,20 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
                 </div>
                 <div className="mt-3 flex items-center justify-between">
                   <span className="gold-text font-display font-black text-lg">
-                    {s.hasQuantity ? 'من $' + s.unitPrice : '$' + s.price}
-                  </span>
-                  <span className="text-[11px] text-slate-400">{s.unit ?? 'لكل طلب'}</span>
+                    {s.hasQuantity ? 'من $' + s.unitPrice : '$' + s.price}</span>
+                  <span className="text-[11px] text-slate-400">{s.unit ? s.unit : 'لكل طلب'}</span>
                 </div>
               </button>
             );
           })}
           {filteredSocial.length === 0 && <EmptyState text="لا توجد خدمات مطابقة" />}
         </div>
-      )}{tab === 'payment' && (
+      )}
+
+      {tab === 'payment' && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 stagger">
           {filteredPayment.map((s) => {
-            const Icon = SERVICE_ICONS[s.icon] ?? UsdtCoinIcon;
+            const Icon = SERVICE_ICONS[s.icon] ? SERVICE_ICONS[s.icon] : UsdtCoinIcon;
             return (
               <button
                 key={s.id}
@@ -208,7 +207,7 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
                   <span className="gold-text font-display font-black text-lg">
                     ${s.price}
                   </span>
-                  <span className="text-[11px] text-slate-400">{s.unit ?? 'لكل طلب'}</span>
+                  <span className="text-[11px] text-slate-400">{s.unit ? s.unit : 'لكل طلب'}</span>
                 </div>
               </button>
             );
@@ -246,8 +245,7 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
                   </button>
                   <button
                     onClick={() => onBuyPhone(c.id, 'wa2', 'WhatsApp')}
-                    className="bg-green-500 text-white text-xs font-bold px-2.5 py-2 rounded-lg hover:scale-105 transition-transform"
-                    title="تفعيل واتساب"
+                    className="bg-green-500 text-white text-xs font-bold px-2.5 py-2 rounded-lg hover:scale-105 transition-transform"title="تفعيل واتساب"
                   >
                     واتساب
                   </button>
@@ -260,7 +258,9 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
       )}
     </div>
   );
-}function TabBtn({
+}
+
+function TabBtn({
   active,
   onClick,
   icon,
@@ -274,8 +274,7 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
   return (
     <button
       onClick={onClick}
-      className={
-        active
+      className={active
           ? 'flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all gold-gradient text-slate-900 shadow-glow'
           : 'flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all text-slate-400 hover:text-slate-100'
       }

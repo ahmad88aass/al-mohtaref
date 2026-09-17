@@ -1,5 +1,16 @@
 // src/components/BrandIcons.tsx
 
+export function GeminiIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <div className={className + " rounded-xl bg-gradient-to-tr from-blue-500 via-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-md p-1"}>
+      <svg className="w-full h-full" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2L13.8 8.2L20 10L13.8 11.8L12 18L10.2 11.8L4 10L10.2 8.2L12 2Z" />
+        <path d="M18.5 16.5L19.2 18.8L21.5 19.5L19.2 20.2L18.5 22.5L17.8 20.2L15.5 19.5L17.8 18.8L18.5 16.5Z" />
+      </svg>
+    </div>
+  );
+}
+
 export function InstagramGrowIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -84,9 +95,7 @@ export function AhlanIcon({ className = "w-6 h-6" }: { className?: string }) {
       Ahlan
     </div>
   );
-}
-
-export function KarniLiveIcon({ className = "w-6 h-6" }: { className?: string }) {
+}export function KarniLiveIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
     <div className={className + " rounded-xl bg-slate-900 border border-purple-500/50 flex items-center justify-center text-purple-400 font-bold text-[9px] shadow-md"}>
       LIVE
@@ -108,7 +117,9 @@ export function HiyyaLiveIcon({ className = "w-6 h-6" }: { className?: string })
       Hiyya
     </div>
   );
-}export function TiktokGrowIcon({ className = "w-6 h-6" }: { className?: string }) {
+}
+
+export function TiktokGrowIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
     <div className={className + " rounded-xl bg-gradient-to-tr from-cyan-400 to-rose-500 flex items-center justify-center text-white font-black text-[10px] shadow-md"}>
       TT
