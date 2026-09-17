@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Phone, Search, Flag, Star, Crown, Share2, CreditCard } from 'lucide-react';
+import { Phone, Search, Flag, Star, Crown, Share2, CreditCard, Ban } from 'lucide-react';
 import { PHONE_COUNTRIES } from '@/data/phoneNumbers';
 import { SERVICES } from '@/data/catalog';
 import { SOCIAL_SERVICES } from '@/data/socialCatalog';
@@ -7,6 +7,7 @@ import { PAYMENT_SERVICES } from '@/data/paymentCatalog';
 import { Rating } from '@/components/Rating';
 import {
   GeminiIcon,
+  ProtonIcon,
   InstagramGrowIcon,
   TelegramPremiumIcon,
   InstagramUnlockIcon,
@@ -32,6 +33,7 @@ interface ServicesProps {
 
 const SERVICE_ICONS: Record<ServiceIconKey, React.ComponentType<{ className?: string }>> = {
   gemini: GeminiIcon,
+  proton: ProtonIcon,
   instagramGrow: InstagramGrowIcon,
   telegramPremium: TelegramPremiumIcon,
   instagramUnlock: InstagramUnlockIcon,
@@ -103,23 +105,32 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-      </div>
-
-      {tab === 'services' && (<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 stagger">
+      </div>{tab === 'services' && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 stagger">
           {filteredServices.map((s) => {
             const Icon = SERVICE_ICONS[s.icon] ? SERVICE_ICONS[s.icon] : InstagramGrowIcon;
+            const isUnavailable = s.tag === 'غير متوفر';
             const isCrown = s.tag === 'الأكثر مبيعاً' ? true : (s.tag === 'الأكثر طلباً' ? true : false);
+
             return (
               <button
                 key={s.id}
+                disabled={isUnavailable}
                 onClick={() => onOpenService(s.id)}
-                className={"glass rounded-2xl p-5 text-right hover:border-gold-500/40 transition-all group hover:-translate-y-1 duration-300 bg-gradient-to-br " + s.accent + " relative overflow-hidden"}
+                className={"glass rounded-2xl p-5 text-right transition-all group duration-300 bg-gradient-to-br " + s.accent + " relative overflow-hidden " + (isUnavailable ? 'opacity-60 cursor-not-allowed border-red-500/40' : 'hover:border-gold-500/40 hover:-translate-y-1')}
               >
-                {s.tag && (
-                  <span className="absolute top-4 left-4 text-[10px] px-2 py-1 rounded-full gold-gradient text-slate-900 font-bold flex items-center gap-1">
-                    {isCrown ? <Crown className="w-3 h-3" /> : <Star className="w-3 h-3" />}
-                    {s.tag}
+                {isUnavailable ? (
+                  <span className="absolute top-4 left-4 text-[11px] px-2.5 py-1 rounded-full bg-red-600 text-white font-bold flex items-center gap-1 shadow-lg">
+                    <Ban className="w-3 h-3" />
+                    غير متوفر
                   </span>
+                ) : (
+                  s.tag && (
+                    <span className="absolute top-4 left-4 text-[10px] px-2 py-1 rounded-full gold-gradient text-slate-900 font-bold flex items-center gap-1">
+                      {isCrown ? <Crown className="w-3 h-3" /> : <Star className="w-3 h-3" />}
+                      {s.tag}
+                    </span>
+                  )
                 )}
                 <div className="w-12 h-12 rounded-xl glass-strong flex items-center justify-center p-1.5">
                   <Icon className="w-full h-full" />
@@ -146,18 +157,27 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 stagger">
           {filteredSocial.map((s) => {
             const Icon = SERVICE_ICONS[s.icon] ? SERVICE_ICONS[s.icon] : InstagramGrowIcon;
+            const isUnavailable = s.tag === 'غير متوفر';
             const isCrown = s.tag === 'الأكثر مبيعاً' ? true : (s.tag === 'الأكثر طلباً' ? true : false);
+
             return (
               <button
                 key={s.id}
+                disabled={isUnavailable}
                 onClick={() => onOpenService(s.id)}
-                className={"glass rounded-2xl p-5 text-right hover:border-gold-500/40 transition-all group hover:-translate-y-1 duration-300 bg-gradient-to-br " + s.accent + " relative overflow-hidden"}
+                className={"glass rounded-2xl p-5 text-right transition-all group duration-300 bg-gradient-to-br " + s.accent + " relative overflow-hidden " + (isUnavailable ? 'opacity-60 cursor-not-allowed border-red-500/40' : 'hover:border-gold-500/40 hover:-translate-y-1')}
               >
-                {s.tag && (
-                  <span className="absolute top-4 left-4 text-[10px] px-2 py-1 rounded-full gold-gradient text-slate-900 font-bold flex items-center gap-1">
-                    {isCrown ? <Crown className="w-3 h-3" /> : <Star className="w-3 h-3" />}
-                    {s.tag}
+                {isUnavailable ? (
+                  <span className="absolute top-4 left-4 text-[11px] px-2.5 py-1 rounded-full bg-red-600 text-white font-bold flex items-center gap-1 shadow-lg">
+                    <Ban className="w-3 h-3" />
+                    غير متوفر
                   </span>
+                ) : (s.tag && (
+                    <span className="absolute top-4 left-4 text-[10px] px-2 py-1 rounded-full gold-gradient text-slate-900 font-bold flex items-center gap-1">
+                      {isCrown ? <Crown className="w-3 h-3" /> : <Star className="w-3 h-3" />}
+                      {s.tag}
+                    </span>
+                  )
                 )}
                 <div className="w-12 h-12 rounded-xl glass-strong flex items-center justify-center p-1.5">
                   <Icon className="w-full h-full" />
@@ -169,7 +189,8 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
                 </div>
                 <div className="mt-3 flex items-center justify-between">
                   <span className="gold-text font-display font-black text-lg">
-                    {s.hasQuantity ? 'من $' + s.unitPrice : '$' + s.price}</span>
+                    {s.hasQuantity ? 'من $' + s.unitPrice : '$' + s.price}
+                  </span>
                   <span className="text-[11px] text-slate-400">{s.unit ? s.unit : 'لكل طلب'}</span>
                 </div>
               </button>
@@ -183,17 +204,27 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 stagger">
           {filteredPayment.map((s) => {
             const Icon = SERVICE_ICONS[s.icon] ? SERVICE_ICONS[s.icon] : UsdtCoinIcon;
+            const isUnavailable = s.tag === 'غير متوفر';
+
             return (
               <button
                 key={s.id}
+                disabled={isUnavailable}
                 onClick={() => onOpenService(s.id)}
-                className={"glass rounded-2xl p-5 text-right hover:border-gold-500/40 transition-all group hover:-translate-y-1 duration-300 bg-gradient-to-br " + s.accent + " relative overflow-hidden"}
+                className={"glass rounded-2xl p-5 text-right transition-all group duration-300 bg-gradient-to-br " + s.accent + " relative overflow-hidden " + (isUnavailable ? 'opacity-60 cursor-not-allowed border-red-500/40' : 'hover:border-gold-500/40 hover:-translate-y-1')}
               >
-                {s.tag && (
-                  <span className="absolute top-4 left-4 text-[10px] px-2 py-1 rounded-full gold-gradient text-slate-900 font-bold flex items-center gap-1">
-                    <Crown className="w-3 h-3" />
-                    {s.tag}
+                {isUnavailable ? (
+                  <span className="absolute top-4 left-4 text-[11px] px-2.5 py-1 rounded-full bg-red-600 text-white font-bold flex items-center gap-1 shadow-lg">
+                    <Ban className="w-3 h-3" />
+                    غير متوفر
                   </span>
+                ) : (
+                  s.tag && (
+                    <span className="absolute top-4 left-4 text-[10px] px-2 py-1 rounded-full gold-gradient text-slate-900 font-bold flex items-center gap-1">
+                      <Crown className="w-3 h-3" />
+                      {s.tag}
+                    </span>
+                  )
                 )}
                 <div className="w-12 h-12 rounded-xl glass-strong flex items-center justify-center p-1.5">
                   <Icon className="w-full h-full" />
@@ -214,9 +245,7 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
           })}
           {filteredPayment.length === 0 && <EmptyState text="لا توجد خدمات مطابقة" />}
         </div>
-      )}
-
-      {tab === 'phones' && (
+      )}{tab === 'phones' && (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 stagger">
           {filteredPhones.map((c) => (
             <div
@@ -245,7 +274,8 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
                   </button>
                   <button
                     onClick={() => onBuyPhone(c.id, 'wa2', 'WhatsApp')}
-                    className="bg-green-500 text-white text-xs font-bold px-2.5 py-2 rounded-lg hover:scale-105 transition-transform"title="تفعيل واتساب"
+                    className="bg-green-500 text-white text-xs font-bold px-2.5 py-2 rounded-lg hover:scale-105 transition-transform"
+                    title="تفعيل واتساب"
                   >
                     واتساب
                   </button>

@@ -3,6 +3,20 @@ import { ServiceItem } from '../types';
 
 export const SERVICES: ServiceItem[] = [
   {
+    id: 'proton-vpn-monthly',
+    name: 'تفعيل اشتراك بروتون VPN',
+    description: 'تفعيل اشتراك Proton VPN رسمي وسريع لمدة شهر بكامل المزايا والخصوصية',
+    price: 5,
+    unit: 'لمدة شهر',
+    icon: 'proton',
+    inputLabel: 'أدخل رقمك للتواصل معك',
+    inputPlaceholder: 'e.g. +9639xxxxxxxx أو 09xxxxxxxx',
+    accent: 'from-purple-600/10 via-indigo-600/10 to-blue-500/10 border-purple-500/20',
+    rating: 5.0,
+    reviews: 140,
+    tag: 'مميز',
+  },
+  {
     id: 'gemini-subscription',
     name: 'اشتراك جمناي سنة ونصف',
     description: 'تفعيل اشتراك Gemini Advanced بكامل المزايا لمدة سنة ونصف',
@@ -111,8 +125,7 @@ export const SERVICES: ServiceItem[] = [
     icon: 'yoho',
     inputLabel: 'آيدي الحساب بـ YoHo',
     inputPlaceholder: 'e.g. 123456',
-    accent: 'from-emerald-500/10 to-teal-500/10 border-emerald-500/20',
-    rating: 4.7,
+    accent: 'from-emerald-500/10 to-teal-500/10 border-emerald-500/20',rating: 4.7,
     reviews: 92,
   },
   {
@@ -128,7 +141,8 @@ export const SERVICES: ServiceItem[] = [
     reviews: 64,
   },
   {
-    id: 'halami-coin',name: 'شحن HalaMi',
+    id: 'halami-coin',
+    name: 'شحن HalaMi',
     description: 'شحن عملات هلا مي برصيد مضمون',
     price: 10,
     icon: 'halami',

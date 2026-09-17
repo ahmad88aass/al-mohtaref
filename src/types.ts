@@ -21,6 +21,7 @@ export interface Order {
 /** Identifies which custom icon component to render for a service. */
 export type ServiceIconKey =
   | 'gemini'
+  | 'proton'
   | 'instagramGrow'
   | 'telegramPremium'
   | 'instagramUnlock'
@@ -54,6 +55,7 @@ export interface ServiceItem {
   rating: number;
   reviews: number;
   tag?: string;
+  outOfStock?: boolean;
 }
 
 export interface PhoneCountry {

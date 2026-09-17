@@ -11,6 +11,16 @@ export function GeminiIcon({ className = "w-6 h-6" }: { className?: string }) {
   );
 }
 
+export function ProtonIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <div className={className + " rounded-xl bg-gradient-to-tr from-purple-600 via-indigo-600 to-blue-500 flex items-center justify-center text-white shadow-md p-1"}>
+      <svg className="w-full h-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      </svg>
+    </div>
+  );
+}
+
 export function InstagramGrowIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -87,15 +97,15 @@ export function HalaMiIcon({ className = "w-6 h-6" }: { className?: string }) {
       Hala
     </div>
   );
-}
-
-export function AhlanIcon({ className = "w-6 h-6" }: { className?: string }) {
+}export function AhlanIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
     <div className={className + " rounded-xl bg-amber-400 flex items-center justify-center text-slate-900 font-bold text-[10px] shadow-md"}>
       Ahlan
     </div>
   );
-}export function KarniLiveIcon({ className = "w-6 h-6" }: { className?: string }) {
+}
+
+export function KarniLiveIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
     <div className={className + " rounded-xl bg-slate-900 border border-purple-500/50 flex items-center justify-center text-purple-400 font-bold text-[9px] shadow-md"}>
       LIVE

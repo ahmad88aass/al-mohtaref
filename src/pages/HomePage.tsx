@@ -37,6 +37,26 @@ export const HomePage: React.FC<HomePageProps> = ({ onNav, onOpenService }) => {
 
   const categories = [
     {
+      id: 'telegram-prem',
+      name: 'تفعيل اشتراك تليجرام بريميوم',
+      image: '/categories/telegram-premium.jpg',
+      description: 'اشتراك تيليجرام بريميوم رسمي وسريع.',
+      action: () => {
+        if (onOpenService) onOpenService('telegram-premium');
+        else if (onNav) onNav('services');
+      }
+    },
+    {
+      id: 'proton-vpn-card',
+      name: 'تفعيل اشتراك بروتون VPN',
+      image: '/categories/proton-vpn.jpg',
+      description: 'تفعيل اشتراك بروتون VPN بكامل المزايا والسرعة.',
+      action: () => {
+        if (onOpenService) onOpenService('proton-vpn-monthly');
+        else if (onNav) onNav('services');
+      }
+    },
+    {
       id: 'pubg',
       name: 'شحن ببجي موبايل',
       image: '/categories/pubg.jpg',
@@ -68,6 +88,16 @@ export const HomePage: React.FC<HomePageProps> = ({ onNav, onOpenService }) => {
       action: () => navigateToTab('الدفع الإلكتروني')
     },
     {
+      id: 'gemini-card',
+      name: 'اشتراك جمناي سنة ونصف',
+      image: '/categories/gemini.jpg',
+      description: 'تفعيل اشتراك Gemini بكامل المزايا لمدة سنة ونصف.',
+      action: () => {
+        if (onOpenService) onOpenService('gemini-subscription');
+        else if (onNav) onNav('services');
+      }
+    },
+    {
       id: 'ai',
       name: 'اشتراكات ذكاء اصطناعي و VPN',
       image: '/categories/ai.jpg',
@@ -85,9 +115,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNav, onOpenService }) => {
 
   const filteredCategories = categories.filter((cat) =>
     cat.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  return (
+  );return (
     <div className="min-h-screen bg-[#0d0714] text-white dir-rtl font-sans pb-16 overflow-x-hidden">
       
       {/* 1. البانر المتحرك */}
@@ -107,7 +135,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNav, onOpenService }) => {
                 }
               />
             );
-          })}<div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+          })}
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10">
             {bannerImages.map((_, idx) => {
               const isCurrent = idx === currentBannerIndex;
               return (
@@ -126,7 +155,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNav, onOpenService }) => {
         </div>
       </div>
 
-      {/* 2. الشريط الأصفر المتحرك بالكامل عبر CSS */}
+      {/* 2. الشريط الأصفر المتحرك */}
       <div className="mt-4 bg-amber-400 text-black py-2.5 overflow-hidden text-xs font-bold shadow-md w-full relative flex">
         <div className="flex w-max animate-[marquee_20s_linear_infinite] whitespace-nowrap">
           <span className="mx-8">⚡️ أهلاً بكم في متجر PHANTOM الرقمي</span>
@@ -159,13 +188,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onNav, onOpenService }) => {
             الخدمات المتاحة
           </h2>
           
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {filteredCategories.map((cat) => (
               <div
                 key={cat.id}
                 onClick={cat.action}
-                className="cursor-pointer rounded-2xl overflow-hidden border border-purple-500/20 bg-purple-950/20 hover:border-purple-400/50 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-500/20"
-              >
+                className="cursor-pointer rounded-2xl overflow-hidden border border-purple-500/20 bg-purple-950/20 hover:border-purple-400/50 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-500/20">
                 <div className="aspect-square relative overflow-hidden bg-purple-900/30">
                   <img
                     src={cat.image}
