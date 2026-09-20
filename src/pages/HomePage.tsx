@@ -151,17 +151,20 @@ export const HomePage: React.FC<HomePageProps> = ({ onNav, onOpenService }) => {
         </div>
       </div>
 
-      {/* 2. الشريط الأصفر المتحرك */}
-      <div className="mt-4 bg-amber-400 text-black py-2.5 overflow-hidden text-xs font-bold shadow-md w-full relative flex">
-        <div className="flex w-max animate-[marquee_20s_linear_infinite] whitespace-nowrap">
-          <span className="mx-8">⚡️ أهلاً بكم في متجر PHANTOM الرقمي</span>
-          <span className="mx-8">★ تنفيذ فائق السرعة لكل الطلبات</span>
-          <span className="mx-8">🔒 خدمات آمنة وموثوقة 100%</span>
-          <span className="mx-8">💎 أفضل الأسعار لشحن الألعاب والبطاقات</span>
-          <span className="mx-8">⚡️ أهلاً بكم في متجر PHANTOM الرقمي</span>
-          <span className="mx-8">★ تنفيذ فائق السرعة لكل الطلبات</span>
-          <span className="mx-8">🔒 خدمات آمنة وموثوقة 100%</span>
-          <span className="mx-8">💎 أفضل الأسعار لشحن الألعاب والبطاقات</span>
+      {/* 2. الشريط المتحرك الشفاف الأنيق */}
+      <div className="mt-4 bg-purple-950/20 border-y border-purple-500/20 py-2.5 overflow-hidden text-xs font-semibold text-purple-200/90 w-full relative flex backdrop-blur-sm">
+        <div className="flex w-max animate-[marquee_25s_linear_infinite] whitespace-nowrap">
+          <span className="mx-8 flex items-center gap-1.5 text-amber-300">⚡️ أهلاً بكم في متجر فانتوم الرقمي</span>
+          <span className="mx-8 text-purple-400">✦</span>
+          <span className="mx-8 text-cyan-300">💎 جميع الخدمات الرقمية في مكان واحد</span>
+          <span className="mx-8 text-purple-400">✦</span>
+          <span className="mx-8 text-emerald-400 font-mono dir-ltr">📞 رقم الإدارة: +963984335910</span>
+          <span className="mx-8 text-purple-400">✦</span>
+          <span className="mx-8 flex items-center gap-1.5 text-amber-300">⚡️ أهلاً بكم في متجر فانتوم الرقمي</span>
+          <span className="mx-8 text-purple-400">✦</span>
+          <span className="mx-8 text-cyan-300">💎 جميع الخدمات الرقمية في مكان واحد</span>
+          <span className="mx-8 text-purple-400">✦</span>
+          <span className="mx-8 text-emerald-400 font-mono dir-ltr">📞 رقم الإدارة: +963984335910</span>
         </div>
       </div>
 
@@ -187,11 +190,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onNav, onOpenService }) => {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {filteredCategories.map((cat) => (
               <div
-                key={cat.id}
-                onClick={cat.action}
+                key={cat.id}onClick={cat.action}
                 className="cursor-pointer rounded-2xl overflow-hidden border border-purple-500/20 bg-purple-950/20 hover:border-purple-400/50 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-500/20"
               >
-                <div className="aspect-square relative overflow-hidden bg-purple-900/30"><img
+                <div className="aspect-square relative overflow-hidden bg-purple-900/30">
+                  <img
                     src={cat.image}
                     alt={cat.name}
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
