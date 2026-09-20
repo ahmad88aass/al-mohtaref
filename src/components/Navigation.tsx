@@ -48,11 +48,11 @@ export function Header({ active, onNav, onOpenAuth }: HeaderProps) {
               className="flex items-center gap-2.5 group shrink-0"
             >
               <img 
-                src="/1000243026.png" 
+                src="/logo.jpg" 
                 alt="Phantom" 
                 className="w-10 h-10 rounded-xl object-cover border border-purple-500/30 shadow-md"
                 onError={(e) => {
-                  (e.target as HTMLImageElement).src = './1000243026.png';
+                  (e.target as HTMLImageElement).src = './logo.jpg';
                 }}
               />
               <div className="text-right leading-tight">
