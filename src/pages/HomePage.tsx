@@ -151,20 +151,32 @@ export const HomePage: React.FC<HomePageProps> = ({ onNav, onOpenService }) => {
         </div>
       </div>
 
-      {/* 2. الشريط المتحرك الشفاف الأنيق */}
-      <div className="mt-4 bg-purple-950/20 border-y border-purple-500/20 py-2.5 overflow-hidden text-xs font-semibold text-purple-200/90 w-full relative flex backdrop-blur-sm">
-        <div className="flex w-max animate-[marquee_25s_linear_infinite] whitespace-nowrap">
-          <span className="mx-8 flex items-center gap-1.5 text-amber-300">⚡️ أهلاً بكم في متجر فانتوم الرقمي</span>
-          <span className="mx-8 text-purple-400">✦</span>
-          <span className="mx-8 text-cyan-300">💎 جميع الخدمات الرقمية في مكان واحد</span>
-          <span className="mx-8 text-purple-400">✦</span>
-          <span className="mx-8 text-emerald-400 font-mono dir-ltr">📞 رقم الإدارة: +963984335910</span>
-          <span className="mx-8 text-purple-400">✦</span>
-          <span className="mx-8 flex items-center gap-1.5 text-amber-300">⚡️ أهلاً بكم في متجر فانتوم الرقمي</span>
-          <span className="mx-8 text-purple-400">✦</span>
-          <span className="mx-8 text-cyan-300">💎 جميع الخدمات الرقمية في مكان واحد</span>
-          <span className="mx-8 text-purple-400">✦</span>
-          <span className="mx-8 text-emerald-400 font-mono dir-ltr">📞 رقم الإدارة: +963984335910</span>
+      {/* 2. الشريط الإعلاني المتحرك بسلاسة مستمرة مع سعر الصرف وبدون فراغات */}
+      <div className="mt-4 border-y border-purple-500/20 py-2.5 overflow-hidden text-xs font-semibold text-purple-200/90 w-full relative flex backdrop-blur-sm select-none">
+        <div className="flex w-max animate-[marquee_18s_linear_infinite] whitespace-nowrap">
+          {/* الكتلة الأولى */}
+          <div className="flex items-center gap-6 px-4">
+            <span className="flex items-center gap-1.5 text-amber-300">⚡️ أهلاً بكم في متجر فانتوم الرقمي</span>
+            <span className="text-purple-400/60">✦</span>
+            <span className="text-cyan-300">💎 جميع الخدمات الرقمية في مكان واحد</span>
+            <span className="text-purple-400/60">✦</span>
+            <span className="text-yellow-400 font-bold">💲 الصرف الآن مقابل سوري: 136 / 138</span>
+            <span className="text-purple-400/60">✦</span>
+            <span className="text-emerald-400 font-mono dir-ltr">📞 رقم الإدارة: +963984335910</span>
+            <span className="text-purple-400/60">✦</span>
+          </div>
+
+          {/* الكتلة الثانية للتكرار المتصل المباشر */}
+          <div className="flex items-center gap-6 px-4">
+            <span className="flex items-center gap-1.5 text-amber-300">⚡️ أهلاً بكم في متجر فانتوم الرقمي</span>
+            <span className="text-purple-400/60">✦</span>
+            <span className="text-cyan-300">💎 جميع الخدمات الرقمية في مكان واحد</span>
+            <span className="text-purple-400/60">✦</span>
+            <span className="text-yellow-400 font-bold">💲 الصرف الآن مقابل سوري: 136 / 138</span>
+            <span className="text-purple-400/60">✦</span>
+            <span className="text-emerald-400 font-mono dir-ltr">📞 رقم الإدارة: +963984335910</span>
+            <span className="text-purple-400/60">✦</span>
+          </div>
         </div>
       </div>
 
@@ -178,9 +190,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNav, onOpenService }) => {
             placeholder="ابحث عن خدمة، لعبة، أو بطاقة..."
             className="w-full bg-purple-950/40 border border-purple-500/30 rounded-xl px-4 py-3 text-sm text-purple-100 placeholder-purple-400/50 focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400 transition text-right"
           />
-        </div>
-
-        {/* 4. شبكة الخدمات والبطاقات */}
+        </div>{/* 4. شبكة الخدمات والبطاقات */}
         <div className="mt-10 mb-12">
           <h2 className="text-xl font-bold text-purple-200 mb-6 flex items-center gap-2">
             <span className="w-2 h-6 bg-purple-500 rounded-full inline-block"></span>
@@ -190,7 +200,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNav, onOpenService }) => {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {filteredCategories.map((cat) => (
               <div
-                key={cat.id}onClick={cat.action}
+                key={cat.id}
+                onClick={cat.action}
                 className="cursor-pointer rounded-2xl overflow-hidden border border-purple-500/20 bg-purple-950/20 hover:border-purple-400/50 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-500/20"
               >
                 <div className="aspect-square relative overflow-hidden bg-purple-900/30">
