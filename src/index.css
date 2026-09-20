@@ -124,3 +124,21 @@ input[type='number'] {
 .stagger > *:nth-child(6) { animation-delay: 0.34s; }
 .stagger > *:nth-child(7) { animation-delay: 0.40s; }
 .stagger > *:nth-child(8) { animation-delay: 0.46s; }
+@keyframes continuousScroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(50%);
+  }
+}
+
+.seamless-marquee {
+  display: flex;
+  width: max-content;
+  animation: continuousScroll 15s linear infinite;
+}
+
+.seamless-marquee:hover {
+  animation-play-state: paused;
+}

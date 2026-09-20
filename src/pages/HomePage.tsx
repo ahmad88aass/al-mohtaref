@@ -151,31 +151,29 @@ export const HomePage: React.FC<HomePageProps> = ({ onNav, onOpenService }) => {
         </div>
       </div>
 
-      {/* 2. الشريط الإعلاني المتحرك بسلاسة مستمرة مع سعر الصرف وبدون فراغات */}
-      <div className="mt-4 border-y border-purple-500/20 py-2.5 overflow-hidden text-xs font-semibold text-purple-200/90 w-full relative flex backdrop-blur-sm select-none">
-        <div className="flex w-max animate-[marquee_18s_linear_infinite] whitespace-nowrap">
-          {/* الكتلة الأولى */}
-          <div className="flex items-center gap-6 px-4">
-            <span className="flex items-center gap-1.5 text-amber-300">⚡️ أهلاً بكم في متجر فانتوم الرقمي</span>
-            <span className="text-purple-400/60">✦</span>
-            <span className="text-cyan-300">💎 جميع الخدمات الرقمية في مكان واحد</span>
-            <span className="text-purple-400/60">✦</span>
-            <span className="text-yellow-400 font-bold">💲 الصرف الآن مقابل سوري: 136 / 138</span>
-            <span className="text-purple-400/60">✦</span>
-            <span className="text-emerald-400 font-mono dir-ltr">📞 رقم الإدارة: +963984335910</span>
-            <span className="text-purple-400/60">✦</span>
+      {/* 2. الشريط الإعلاني المتصل دائرياً بدون فراغات */}
+      <div className="mt-4 border-y border-purple-500/20 py-2.5 overflow-hidden text-xs font-semibold text-purple-200/90 w-full relative flex backdrop-blur-sm select-none" dir="ltr">
+        <div className="seamless-marquee">
+          <div className="flex items-center gap-6 px-4 shrink-0">
+            <span className="flex items-center gap-1.5 text-amber-300 font-bold">⚡️ أهلاً بكم في متجر فانتوم الرقمي</span>
+            <span className="text-purple-400">✦</span>
+            <span className="text-cyan-300 font-bold">💎 جميع الخدمات الرقمية في مكان واحد</span>
+            <span className="text-purple-400">✦</span>
+            <span className="text-yellow-400 font-extrabold">💲 الصرف الآن مقابل سوري: 136 / 138</span>
+            <span className="text-purple-400">✦</span>
+            <span className="text-emerald-400 font-mono font-bold dir-ltr">📞 رقم الإدارة: +963984335910</span>
+            <span className="text-purple-400">✦</span>
           </div>
 
-          {/* الكتلة الثانية للتكرار المتصل المباشر */}
-          <div className="flex items-center gap-6 px-4">
-            <span className="flex items-center gap-1.5 text-amber-300">⚡️ أهلاً بكم في متجر فانتوم الرقمي</span>
-            <span className="text-purple-400/60">✦</span>
-            <span className="text-cyan-300">💎 جميع الخدمات الرقمية في مكان واحد</span>
-            <span className="text-purple-400/60">✦</span>
-            <span className="text-yellow-400 font-bold">💲 الصرف الآن مقابل سوري: 136 / 138</span>
-            <span className="text-purple-400/60">✦</span>
-            <span className="text-emerald-400 font-mono dir-ltr">📞 رقم الإدارة: +963984335910</span>
-            <span className="text-purple-400/60">✦</span>
+          <div className="flex items-center gap-6 px-4 shrink-0">
+            <span className="flex items-center gap-1.5 text-amber-300 font-bold">⚡️ أهلاً بكم في متجر فانتوم الرقمي</span>
+            <span className="text-purple-400">✦</span>
+            <span className="text-cyan-300 font-bold">💎 جميع الخدمات الرقمية في مكان واحد</span>
+            <span className="text-purple-400">✦</span>
+            <span className="text-yellow-400 font-extrabold">💲 الصرف الآن مقابل سوري: 136 / 138</span>
+            <span className="text-purple-400">✦</span>
+            <span className="text-emerald-400 font-mono font-bold dir-ltr">📞 رقم الإدارة: +963984335910</span>
+            <span className="text-purple-400">✦</span>
           </div>
         </div>
       </div>
