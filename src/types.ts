@@ -18,6 +18,13 @@ export interface Order {
   quantity?: number;
 }
 
+export interface ServiceTier {
+  id: string;
+  name: string;
+  price: number;
+  providerSubId?: number;
+}
+
 /** Identifies which custom icon component to render for a service. */
 export type ServiceIconKey =
   | 'gemini'
@@ -26,14 +33,12 @@ export type ServiceIconKey =
   | 'telegramPremium'
   | 'instagramUnlock'
   | 'instagram'
-  | 'yahla'
-  | 'yoho'
+  | 'bigo'
+  | 'sugo'
   | 'yaahlan'
-  | 'halami'
   | 'ahlan'
   | 'karnilive'
   | 'yoyolive'
-  | 'hiyjalive'
   | 'pubgUc'
   | 'tiktokGrow'
   | 'usdtCoin';
@@ -56,6 +61,7 @@ export interface ServiceItem {
   reviews: number;
   tag?: string;
   outOfStock?: boolean;
+  tiers?: ServiceTier[];
 }
 
 export interface PhoneCountry {

@@ -21,6 +21,22 @@ export function ProtonIcon({ className = "w-6 h-6" }: { className?: string }) {
   );
 }
 
+export function BigoIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <div className={className + " rounded-xl bg-gradient-to-tr from-cyan-400 to-teal-500 flex items-center justify-center text-white font-black text-[10px] shadow-md p-1"}>
+      BIGO
+    </div>
+  );
+}
+
+export function SugoIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <div className={className + " rounded-xl bg-gradient-to-tr from-pink-500 to-rose-600 flex items-center justify-center text-white font-black text-[10px] shadow-md p-1"}>
+      SUGO
+    </div>
+  );
+}
+
 export function InstagramGrowIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -59,14 +75,6 @@ export function InstagramIcon({ className = "w-6 h-6" }: { className?: string })
   );
 }
 
-export function YahlaIcon({ className = "w-6 h-6" }: { className?: string }) {
-  return (
-    <div className={className + " rounded-xl bg-gradient-to-tr from-pink-500 to-purple-600 flex items-center justify-center text-white font-black text-xs shadow-md"}>
-      YH
-    </div>
-  );
-}
-
 export function PubgUcIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
     <div className={className + " rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-300 flex items-center justify-center text-slate-950 font-black text-xs shadow-md"}>
@@ -75,26 +83,10 @@ export function PubgUcIcon({ className = "w-6 h-6" }: { className?: string }) {
   );
 }
 
-export function YoHoIcon({ className = "w-6 h-6" }: { className?: string }) {
-  return (
-    <div className={className + " rounded-xl bg-emerald-500 flex items-center justify-center text-white font-black text-[10px] shadow-md overflow-hidden p-1"}>
-      YoHo
-    </div>
-  );
-}
-
 export function YaahlanIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
     <div className={className + " rounded-xl bg-purple-600 flex items-center justify-center text-white font-bold text-[10px] shadow-md"}>
       Yaah
-    </div>
-  );
-}
-
-export function HalaMiIcon({ className = "w-6 h-6" }: { className?: string }) {
-  return (
-    <div className={className + " rounded-xl bg-fuchsia-600 flex items-center justify-center text-white font-bold text-[10px] shadow-md"}>
-      Hala
     </div>
   );
 }export function AhlanIcon({ className = "w-6 h-6" }: { className?: string }) {
@@ -117,14 +109,6 @@ export function YoyoLiveIcon({ className = "w-6 h-6" }: { className?: string }) 
   return (
     <div className={className + " rounded-xl bg-cyan-400 flex items-center justify-center text-slate-950 font-black text-xs shadow-md"}>
       YO!
-    </div>
-  );
-}
-
-export function HiyyaLiveIcon({ className = "w-6 h-6" }: { className?: string }) {
-  return (
-    <div className={className + " rounded-xl bg-pink-400 flex items-center justify-center text-white font-bold text-[10px] shadow-md"}>
-      Hiyya
     </div>
   );
 }

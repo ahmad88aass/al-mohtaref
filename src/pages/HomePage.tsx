@@ -23,7 +23,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onNav, onOpenService }) => {
     return () => clearInterval(interval);
   }, [bannerImages.length]);
 
-  // دالة مساعدة للانتقال والضغط على التبويب المناسب تلقائياً
   const navigateToTab = (tabName: string) => {
     if (onNav) onNav('services');
     setTimeout(() => {
@@ -98,29 +97,26 @@ export const HomePage: React.FC<HomePageProps> = ({ onNav, onOpenService }) => {
       }
     },
     {
-      id: 'ai',
-      name: 'اشتراكات ذكاء اصطناعي و VPN',
-      image: '/categories/ai.jpg',
-      description: 'حسابات واشتراكات ChatGPT Plus, Claude, وخدمات VPN.',
-      action: () => navigateToTab('الخدمات الرقمية')
-    },
-    {
       id: 'instagram',
       name: 'توثيق خدمات انستغرام',
       image: '/categories/instagram.jpg',
-      description: 'خدمات زيادة المتابعين والتفاعل وتوثيق الحسابات.',
-      action: () => navigateToTab('سوشيال ميديا')
+      description: 'توثيق الحساب بالعلامة الزرقاء رسمياً لمدة شهر.',
+      action: () => {
+        if (onOpenService) onOpenService('instagram-verification-monthly');
+        else if (onNav) onNav('services');
+      }
     },
   ];
 
   const filteredCategories = categories.filter((cat) =>
     cat.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );return (
+  );
+
+  return (
     <div className="min-h-screen bg-[#0d0714] text-white dir-rtl font-sans pb-16 overflow-x-hidden">
       
       {/* 1. البانر المتحرك */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-        <div className="relative w-full aspect-[3/1] sm:aspect-[4/1] max-h-[250px] rounded-2xl overflow-hidden border border-purple-500/30 shadow-2xl bg-black/40">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6"><div className="relative w-full aspect-[3/1] sm:aspect-[4/1] max-h-[250px] rounded-2xl overflow-hidden border border-purple-500/30 shadow-2xl bg-black/40">
           {bannerImages.map((src, index) => {
             const isCurrent = index === currentBannerIndex;
             return (
@@ -193,9 +189,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onNav, onOpenService }) => {
               <div
                 key={cat.id}
                 onClick={cat.action}
-                className="cursor-pointer rounded-2xl overflow-hidden border border-purple-500/20 bg-purple-950/20 hover:border-purple-400/50 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-500/20">
-                <div className="aspect-square relative overflow-hidden bg-purple-900/30">
-                  <img
+                className="cursor-pointer rounded-2xl overflow-hidden border border-purple-500/20 bg-purple-950/20 hover:border-purple-400/50 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-500/20"
+              >
+                <div className="aspect-square relative overflow-hidden bg-purple-900/30"><img
                     src={cat.image}
                     alt={cat.name}
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"

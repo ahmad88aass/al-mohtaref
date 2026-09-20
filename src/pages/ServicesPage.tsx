@@ -12,15 +12,13 @@ import {
   TelegramPremiumIcon,
   InstagramUnlockIcon,
   InstagramIcon,
-  YahlaIcon,
+  BigoIcon,
+  SugoIcon,
   PubgUcIcon,
-  YoHoIcon,
   YaahlanIcon,
-  HalaMiIcon,
   AhlanIcon,
   KarniLiveIcon,
   YoyoLiveIcon,
-  HiyyaLiveIcon,
   TiktokGrowIcon,
   UsdtCoinIcon,
 } from '@/components/BrandIcons';
@@ -38,15 +36,13 @@ const SERVICE_ICONS: Record<ServiceIconKey, React.ComponentType<{ className?: st
   telegramPremium: TelegramPremiumIcon,
   instagramUnlock: InstagramUnlockIcon,
   instagram: InstagramIcon,
-  yahla: YahlaIcon,
+  bigo: BigoIcon,
+  sugo: SugoIcon,
   pubgUc: PubgUcIcon,
-  yoho: YoHoIcon,
   yaahlan: YaahlanIcon,
-  halami: HalaMiIcon,
   ahlan: AhlanIcon,
   karnilive: KarniLiveIcon,
   yoyolive: YoyoLiveIcon,
-  hiyjalive: HiyyaLiveIcon,
   tiktokGrow: TiktokGrowIcon,
   usdtCoin: UsdtCoinIcon,
 };
@@ -105,9 +101,10 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-      </div>{tab === 'services' && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 stagger">
-          {filteredServices.map((s) => {
+      </div>
+
+      {tab === 'services' && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 stagger">{filteredServices.map((s) => {
             const Icon = SERVICE_ICONS[s.icon] ? SERVICE_ICONS[s.icon] : InstagramGrowIcon;
             const isUnavailable = s.tag === 'غير متوفر';
             const isCrown = s.tag === 'الأكثر مبيعاً' ? true : (s.tag === 'الأكثر طلباً' ? true : false);
@@ -142,7 +139,7 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
                 </div>
                 <div className="mt-3 flex items-center justify-between">
                   <span className="gold-text font-display font-black text-lg">
-                    {s.hasQuantity ? 'من $' + s.unitPrice : '$' + s.price}
+                    {s.tiers && s.tiers.length > 0 ? 'من $' + s.tiers[0].price.toFixed(2) : (s.hasQuantity ? 'من $' + s.unitPrice : '$' + s.price)}
                   </span>
                   <span className="text-[11px] text-slate-400">{s.unit ? s.unit : 'لكل طلب'}</span>
                 </div>
@@ -172,9 +169,9 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
                     <Ban className="w-3 h-3" />
                     غير متوفر
                   </span>
-                ) : (s.tag && (
-                    <span className="absolute top-4 left-4 text-[10px] px-2 py-1 rounded-full gold-gradient text-slate-900 font-bold flex items-center gap-1">
-                      {isCrown ? <Crown className="w-3 h-3" /> : <Star className="w-3 h-3" />}
+                ) : (
+                  s.tag && (
+                    <span className="absolute top-4 left-4 text-[10px] px-2 py-1 rounded-full gold-gradient text-slate-900 font-bold flex items-center gap-1">{isCrown ? <Crown className="w-3 h-3" /> : <Star className="w-3 h-3" />}
                       {s.tag}
                     </span>
                   )
@@ -245,10 +242,11 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
           })}
           {filteredPayment.length === 0 && <EmptyState text="لا توجد خدمات مطابقة" />}
         </div>
-      )}{tab === 'phones' && (
+      )}
+
+      {tab === 'phones' && (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 stagger">
-          {filteredPhones.map((c) => (
-            <div
+          {filteredPhones.map((c) => (<div
               key={c.id}
               className="glass rounded-2xl p-4 hover:border-gold-500/30 transition-all group hover:-translate-y-1 duration-300"
             >
