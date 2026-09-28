@@ -4,7 +4,6 @@ import {
   Wallet,
   CreditCard,
   MessageCircle,
-  Instagram,
   UserPlus,
   Info,
   ChevronDown,
@@ -76,9 +75,7 @@ export function SidebarMenu({ isOpen, onClose, onGoWallet }: Props) {
             >
               <Wallet className="w-5 h-5 text-amber-400" />
               <span className="font-medium text-sm">حسابي (المحفظة)</span>
-            </button>
-
-            {/* طرق الدفع */}
+            </button>{/* طرق الدفع */}
             <div>
               <button
                 onClick={() => setShowPaymentMethods(!showPaymentMethods)}
@@ -102,8 +99,7 @@ export function SidebarMenu({ isOpen, onClose, onGoWallet }: Props) {
                     <span>شام كاش</span>
                     <span className="text-emerald-400">متاح</span>
                   </div>
-                  <div className="flex items-center justify-between border-b border-slate-800 pb-2"><span>عملات رقمية (USDT)</span>
-                    <span className="text-emerald-400">متاح</span>
+                  <div className="flex items-center justify-between border-b border-slate-800 pb-2"><span>عملات رقمية (USDT)</span><span className="text-emerald-400">متاح</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span>بالليرة التركية (TRY)</span>
@@ -125,15 +121,15 @@ export function SidebarMenu({ isOpen, onClose, onGoWallet }: Props) {
               <span className="font-medium text-sm">تواصل مع الإدارة</span>
             </a>
 
-            {/* تابعنا (إنستغرام) */}
+            {/* تابعنا (قناة الواتساب) */}
             <a
-              href="https://instagram.com/a.j._7"
+              href="https://whatsapp.com/channel/0029Vb8aXG0DOQIOBBZRTb1g"
               target="_blank"
               rel="noopener noreferrer"
               onClick={onClose}
               className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800/60 text-slate-200 transition-colors"
             >
-              <Instagram className="w-5 h-5 text-pink-400" />
+              <MessageCircle className="w-5 h-5 text-emerald-400" />
               <span className="font-medium text-sm">تابعنا</span>
             </a>
 
@@ -160,9 +156,7 @@ export function SidebarMenu({ isOpen, onClose, onGoWallet }: Props) {
         <div className="text-center text-xs text-slate-500 pt-4 border-t border-slate-800">
           جميع الحقوق محفوظة © {new Date().getFullYear()}
         </div>
-      </aside>
-
-      {/* نافذة "من نحن" المنبثقة */}
+      </aside>{/* نافذة "من نحن" المنبثقة */}
       {showAboutModal && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-[60] flex items-center justify-center p-4">
           <div className="bg-slate-900 border border-amber-500/30 rounded-3xl p-6 max-w-sm w-full text-center space-y-4 animate-fade-in" dir="rtl">
@@ -171,7 +165,7 @@ export function SidebarMenu({ isOpen, onClose, onGoWallet }: Props) {
             </div>
             <h3 className="text-xl font-bold text-slate-100">من نحن</h3>
             <p className="text-sm text-slate-300 leading-relaxed text-justify">
-              نحن إدارة تطبيق فانتوم: المالك الرسمي هو <span className="text-amber-400 font-bold">أحمد</span>. مطور في مجال الذكاء الاصطناعي وبرمجة المواقع والمتاجر ومدير مكافحة الأمن السيبراني. نهدف من خلال موقعنا التقدم في الابتكار والأمان والجودة لتلبية تطلعات عملائنا وتقديم حلول متقدمة في مجال التكنولوجيا.
+              نحن إدارة تطبيق فانتوم: المالك الرسمي هو <span className="text-amber-400 font-bold">أحمد</span>. مطور في مجال الذكاء الاصطناعي وبرمجة المواقع والمتاجر وقائد جهاز الأمن السيبراني. نهدف من خلال موقعنا التقدم في الابتكار والأمان والجودة لتلبية تطلعات عملائنا وتقديم حلول متقدمة في مجال التكنولوجيا.
             </p>
             <button
               onClick={() => setShowAboutModal(false)}
