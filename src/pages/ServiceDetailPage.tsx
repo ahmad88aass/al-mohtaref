@@ -10,6 +10,9 @@ import {
 import { SERVICES } from '@/data/catalog';
 import { SOCIAL_SERVICES } from '@/data/socialCatalog';
 import { PAYMENT_SERVICES } from '@/data/paymentCatalog';
+import { SOFTWARE_SERVICES } from '@/data/softwareCatalog';
+import { LIVE_STREAMING_SERVICES } from '@/data/liveStreamingCatalog';
+import { VPN_SERVICES } from '@/data/vpnCatalog';
 import { useStore } from '@/store/StoreContext';
 import { useToast } from '@/store/ToastContext';
 import { Rating } from '@/components/Rating';
@@ -28,6 +31,21 @@ import {
   KarniLiveIcon,
   TiktokGrowIcon,
   UsdtCoinIcon,
+  UnlockToolIcon,
+  OxygenIcon,
+  SamFwIcon,
+  WhatsappBoostIcon,
+  InstagramBoostIcon,
+  TiktokBoostIcon,
+  SugarLiveIcon,
+  TakaLiveIcon,
+  ImoIcon,
+  YoyoLiveIcon,
+  CrushLiveIcon,
+  MicoLiveIcon,
+  ChametIcon,
+  NordVpnIcon,
+  ExpressVpnIcon,
 } from '@/components/BrandIcons';
 import type { ServiceIconKey, ServiceTier } from '@/types';
 import { createShop2TopUpOrder } from '@/services/shop2topup';
@@ -53,6 +71,21 @@ const SERVICE_ICONS: Record<ServiceIconKey, React.ComponentType<{ className?: st
   karnilive: KarniLiveIcon,
   tiktokGrow: TiktokGrowIcon,
   usdtCoin: UsdtCoinIcon,
+  unlockTool: UnlockToolIcon,
+  oxygen: OxygenIcon,
+  samfw: SamFwIcon,
+  whatsappBoost: WhatsappBoostIcon,
+  instagramBoost: InstagramBoostIcon,
+  tiktokBoost: TiktokBoostIcon,
+  sugarLive: SugarLiveIcon,
+  takaLive: TakaLiveIcon,
+  imo: ImoIcon,
+  yoyoLive: YoyoLiveIcon,
+  crushLive: CrushLiveIcon,
+  micoLive: MicoLiveIcon,
+  chamet: ChametIcon,
+  nordVpn: NordVpnIcon,
+  expressVpn: ExpressVpnIcon,
 };
 
 const SERVICES_BOT_TOKEN = "8479837870:AAE400wttToGSOPLzK45cfffzbQj6NjXKGM";
@@ -67,7 +100,14 @@ const PROVIDER_SUB_CATEGORIES: Record<string, number> = {
 
 export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
   const allAvailableServices = useMemo(
-    () => [...SERVICES, ...SOCIAL_SERVICES, ...PAYMENT_SERVICES],
+    () => [
+      ...SERVICES,
+      ...SOCIAL_SERVICES,
+      ...PAYMENT_SERVICES,
+      ...SOFTWARE_SERVICES,
+      ...LIVE_STREAMING_SERVICES,
+      ...VPN_SERVICES,
+    ],
     []
   );
   const service = useMemo(
@@ -81,7 +121,6 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
   const [target, setTarget] = useState('');
   const [busy, setBusy] = useState(false);
 
-  // تحديث الفئة الافتراضية فور فتح أي منتج
   useEffect(() => {
     if (service && service.tiers && service.tiers.length > 0) {
       setSelectedTier(service.tiers[0]);
@@ -101,17 +140,19 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
 
   const Icon = SERVICE_ICONS[service.icon] ? SERVICE_ICONS[service.icon] : InstagramGrowIcon;
 
-  // الحساب الحي الفوري للسعر حسب الفئة المضغوطة
   const currentTotal = selectedTier ? Number(selectedTier.price) : Number(service.price);
-  const canBuy = target.trim().length > 0 && wallet >= currentTotal && !busy;
+  const canBuy = target.trim().length > 0 && wallet >= currentTotal && !busy;const isContactService =
+    service.id.includes('vpn') ||
+    service.id === 'gemini-subscription' ||
+    service.id.includes('yearly') ||
+    service.inputLabel.includes('رقمك');
 
-  const isContactService = service.id === 'gemini-subscription' || service.id === 'proton-vpn-monthly';
-  const currentLabel = isContactService ? 'أدخل رقمك للتواصل معك' : service.inputLabel;
+  const currentLabel = isContactService ? 'ادخل رقمك للتواصل معك' : service.inputLabel;
   const currentPlaceholder = isContactService ? 'e.g. +9639xxxxxxxx أو 09xxxxxxxx' : service.inputPlaceholder;
 
   const notifyServicesBot = async (orderId: string, targetValue: string, providerStatus: string, tierName?: string) => {
     const userLabel = publicId ? publicId : 'unknown';
-    const targetField = isContactService ? '\n📱 Phone: ' : '\n🎯 Target: ';
+    const targetField = isContactService ? '\n📱 Phone: ' : '\n🎯 Target / ID: ';
     const tierField = tierName ? ('\n🏷 Tier: ' + tierName) : '';
     const msg =
       "🛒 New Service Order\n🆔 Order: " + orderId +
@@ -120,7 +161,9 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
       tierField +
       targetField + targetValue +
       "\n💵 Price: $" + currentTotal.toFixed(2) +
-      "\n⚡️ Provider Status: " + providerStatus;const url = "https://api.telegram.org/bot" + SERVICES_BOT_TOKEN + "/sendMessage";
+      "\n⚡️ Provider Status: " + providerStatus;
+
+    const url = "https://api.telegram.org/bot" + SERVICES_BOT_TOKEN + "/sendMessage";
 
     try {
       const res = await fetch(url, {
@@ -177,7 +220,7 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
 
       await notifyServicesBot(orderIdValue, target.trim(), providerStatus, selectedTier ? selectedTier.name : undefined);
       setBusy(false);
-      notify('سيتم معالجة طلبك فوراً', 'success');
+      notify('تم تنفيذ الطلب بنجاح', 'success');
       setTarget('');
       onGoOrders();
     } else {
@@ -198,12 +241,11 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
 
       <div className={"glass-strong rounded-3xl p-6 sm:p-8 bg-gradient-to-br " + service.accent + " animate-slide-up"}>
         <div className="flex items-start gap-4">
-          <div className="w-14 h-14 rounded-2xl glass-strong flex items-center justify-center shrink-0 p-2">
+          <div className="w-14 h-14 rounded-2xl glass-strong flex items-center justify-center shrink-0 p-1.5 overflow-hidden">
             <Icon className="w-full h-full" />
           </div>
           <div className="flex-1">
-            <h1 className="font-display font-black text-2xl text-slate-50">{service.name}</h1>
-            <p className="text-sm text-slate-300 mt-1">{service.description}</p>
+            <h1 className="font-display font-black text-2xl text-slate-50">{service.name}</h1><p className="text-sm text-slate-300 mt-1">{service.description}</p>
             <div className="mt-3 flex flex-wrap items-center gap-2">
               <span className="text-xs px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-300 font-medium flex items-center gap-1">
                 <CheckCircle2 className="w-3 h-3" />
@@ -221,12 +263,12 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
       </div>
 
       <div className="mt-6 glass rounded-3xl p-6 sm:p-8 space-y-5 animate-fade-in">
-        {/* اختيار الفئة إن وُجدت */}
         {service.tiers && service.tiers.length > 0 && (
           <div>
-            <label className="block text-sm font-semibold text-slate-200 mb-2.5">اختر الفئة المطلوبة:
+            <label className="block text-sm font-semibold text-slate-200 mb-2.5">
+              اختر الفئة المطلوبة:
             </label>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
               {service.tiers.map((tier) => {
                 const isSelected = selectedTier?.id === tier.id;
                 return (
@@ -266,7 +308,6 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
           />
         </div>
 
-        {/* خانة السعر الإجمالي المباشر بدون تعليق العداد */}
         <div className="glass rounded-2xl p-4 flex items-center justify-between">
           <span className="text-sm text-slate-300">السعر الإجمالي</span>
           <span key={currentTotal} className="font-display font-black text-2xl gold-text transition-all">
@@ -299,9 +340,7 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
               شراء الآن (${currentTotal.toFixed(2)})
             </>
           )}
-        </button>
-
-        <div className="flex items-start gap-2 text-xs text-slate-400 leading-relaxed">
+        </button><div className="flex items-start gap-2 text-xs text-slate-400 leading-relaxed">
           <Info className="w-3.5 h-3.5 mt-0.5 shrink-0 text-sky-400" />
           سيتم تنفيذ طلبك فور تأكيده وخصم الرصيد تلقائياً من محفظتك.
         </div>

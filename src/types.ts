@@ -1,31 +1,3 @@
-export type OrderStatus = 'قيد المعالجة' | 'مكتمل' | 'ملغي';
-
-export type OrderType = 'phone' | 'service';
-
-export interface Order {
-  id: string;
-  code: string;
-  type: OrderType;
-  serviceName: string;
-  target: string;
-  price: number;
-  status: OrderStatus;
-  createdAt: number;
-  country?: string;
-  flag?: string;
-  phoneNumber?: string;
-  otp?: string;
-  quantity?: number;
-}
-
-export interface ServiceTier {
-  id: string;
-  name: string;
-  price: number;
-  providerSubId?: number;
-}
-
-/** Identifies which custom icon component to render for a service. */
 export type ServiceIconKey =
   | 'gemini'
   | 'proton'
@@ -38,10 +10,31 @@ export type ServiceIconKey =
   | 'yaahlan'
   | 'ahlan'
   | 'karnilive'
-  | 'yoyolive'
   | 'pubgUc'
   | 'tiktokGrow'
-  | 'usdtCoin';
+  | 'usdtCoin'
+  | 'unlockTool'
+  | 'oxygen'
+  | 'samfw'
+  | 'whatsappBoost'
+  | 'instagramBoost'
+  | 'tiktokBoost'
+  | 'sugarLive'
+  | 'takaLive'
+  | 'imo'
+  | 'yoyoLive'
+  | 'crushLive'
+  | 'micoLive'
+  | 'chamet'
+  | 'nordVpn'
+  | 'expressVpn';
+
+export interface ServiceTier {
+  id: string;
+  name: string;
+  price: number;
+  providerSubId?: number;
+}
 
 export interface ServiceItem {
   id: string;
@@ -52,24 +45,11 @@ export interface ServiceItem {
   icon: ServiceIconKey;
   inputLabel: string;
   inputPlaceholder: string;
-  hasQuantity?: boolean;
-  quantityLabel?: string;
-  unitPrice?: number;
-  unitAmount?: number;
   accent: string;
   rating: number;
   reviews: number;
   tag?: string;
-  outOfStock?: boolean;
   tiers?: ServiceTier[];
-}
-
-export interface PhoneCountry {
-  id: string;
-  country: string;
-  flag: string;
-  price: number;
-  available: number;
-  rating: number;
-  reviews: number;
+  hasQuantity?: boolean;
+  unitPrice?: number;
 }

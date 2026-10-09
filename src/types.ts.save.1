@@ -1,0 +1,53 @@
+export type ServiceIconKey =
+  | 'gemini'
+  | 'proton'
+  | 'instagramGrow'
+  | 'telegramPremium'
+  | 'instagramUnlock'
+  | 'instagram'
+  | 'bigo'
+  | 'sugo'
+  | 'yaahlan'
+  | 'ahlan'
+  | 'karnilive'
+  | 'pubgUc'
+  | 'tiktokGrow'
+  | 'usdtCoin'
+  | 'unlockTool'
+  | 'oxygen'
+  | 'samfw'
+  | 'whatsappBoost'
+  | 'instagramBoost'
+  | 'tiktokBoost'
+  | 'sugarLive'
+  | 'takaLive'
+  | 'imo'
+  | 'yoyoLive'
+  | 'crushLive'
+  | 'micoLive'
+  | 'chamet';
+
+export interface ServiceTier {
+  id: string;
+  name: string;
+  price: number;
+  providerSubId?: number;
+}
+
+export interface ServiceItem {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  unit?: string;
+  icon: ServiceIconKey;
+  inputLabel: string;
+  inputPlaceholder: string;
+  accent: string;
+  rating: number;
+  reviews: number;
+  tag?: string;
+  tiers?: ServiceTier[];
+  hasQuantity?: boolean;
+  unitPrice?: number;
+}

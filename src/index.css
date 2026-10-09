@@ -124,21 +124,38 @@ input[type='number'] {
 .stagger > *:nth-child(6) { animation-delay: 0.34s; }
 .stagger > *:nth-child(7) { animation-delay: 0.40s; }
 .stagger > *:nth-child(8) { animation-delay: 0.46s; }
-@keyframes continuousScroll {
+
+/* حركة الشريط السلس بدون تقطيع بدقة 60fps */
+@keyframes masterMarquee {
   0% {
-    transform: translateX(0%);
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translateX(50%);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
-.seamless-marquee {
+.seamless-marquee-container {
   display: flex;
-  width: max-content;
-  animation: continuousScroll 15s linear infinite;
+  overflow: hidden;
+  user-select: none;
+  width: 100%;
 }
 
-.seamless-marquee:hover {
+.seamless-marquee-track {
+  display: flex;
+  flex-shrink: 0;
+  width: max-content;
+  will-change: transform;
+  animation: masterMarquee 28s linear infinite;
+}
+
+.seamless-marquee-track:hover {
   animation-play-state: paused;
+}
+
+/* تأثير حواف وظلال البانر المنساب */
+.banner-card {
+  box-shadow: 0 10px 30px -10px rgba(147, 51, 234, 0.35);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }

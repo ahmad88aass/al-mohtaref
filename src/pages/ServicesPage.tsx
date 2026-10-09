@@ -1,9 +1,12 @@
 import { useState } from 'react';
-import { Phone, Search, Flag, Star, Crown, Share2, CreditCard, Ban } from 'lucide-react';
+import { Phone, Search, Flag, Star, Crown, Share2, CreditCard, Ban, Wrench, Radio, ShieldCheck } from 'lucide-react';
 import { PHONE_COUNTRIES } from '@/data/phoneNumbers';
 import { SERVICES } from '@/data/catalog';
 import { SOCIAL_SERVICES } from '@/data/socialCatalog';
 import { PAYMENT_SERVICES } from '@/data/paymentCatalog';
+import { SOFTWARE_SERVICES } from '@/data/softwareCatalog';
+import { LIVE_STREAMING_SERVICES } from '@/data/liveStreamingCatalog';
+import { VPN_SERVICES } from '@/data/vpnCatalog';
 import { Rating } from '@/components/Rating';
 import {
   GeminiIcon,
@@ -18,9 +21,23 @@ import {
   YaahlanIcon,
   AhlanIcon,
   KarniLiveIcon,
-  YoyoLiveIcon,
   TiktokGrowIcon,
   UsdtCoinIcon,
+  UnlockToolIcon,
+  OxygenIcon,
+  SamFwIcon,
+  WhatsappBoostIcon,
+  InstagramBoostIcon,
+  TiktokBoostIcon,
+  SugarLiveIcon,
+  TakaLiveIcon,
+  ImoIcon,
+  YoyoLiveIcon,
+  CrushLiveIcon,
+  MicoLiveIcon,
+  ChametIcon,
+  NordVpnIcon,
+  ExpressVpnIcon,
 } from '@/components/BrandIcons';
 import type { ServiceIconKey } from '@/types';
 
@@ -42,14 +59,28 @@ const SERVICE_ICONS: Record<ServiceIconKey, React.ComponentType<{ className?: st
   yaahlan: YaahlanIcon,
   ahlan: AhlanIcon,
   karnilive: KarniLiveIcon,
-  yoyolive: YoyoLiveIcon,
   tiktokGrow: TiktokGrowIcon,
   usdtCoin: UsdtCoinIcon,
+  unlockTool: UnlockToolIcon,
+  oxygen: OxygenIcon,
+  samfw: SamFwIcon,
+  whatsappBoost: WhatsappBoostIcon,
+  instagramBoost: InstagramBoostIcon,
+  tiktokBoost: TiktokBoostIcon,
+  sugarLive: SugarLiveIcon,
+  takaLive: TakaLiveIcon,
+  imo: ImoIcon,
+  yoyoLive: YoyoLiveIcon,
+  crushLive: CrushLiveIcon,
+  micoLive: MicoLiveIcon,
+  chamet: ChametIcon,
+  nordVpn: NordVpnIcon,
+  expressVpn: ExpressVpnIcon,
 };
 
 export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
   const [query, setQuery] = useState('');
-  const [tab, setTab] = useState<'services' | 'social' | 'payment' | 'phones'>('services');
+  const [tab, setTab] = useState<'services' | 'vpn' | 'live' | 'social' | 'software' | 'payment' | 'phones'>('services');
 
   const filteredPhones = PHONE_COUNTRIES.filter((c) =>
     c.country.toLowerCase().includes(query.toLowerCase())
@@ -57,10 +88,19 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
   const filteredServices = SERVICES.filter((s) =>
     s.name.toLowerCase().includes(query.toLowerCase())
   );
+  const filteredVpn = VPN_SERVICES.filter((s) =>
+    s.name.toLowerCase().includes(query.toLowerCase())
+  );
+  const filteredLive = LIVE_STREAMING_SERVICES.filter((s) =>
+    s.name.toLowerCase().includes(query.toLowerCase())
+  );
   const filteredSocial = SOCIAL_SERVICES.filter((s) =>
     s.name.toLowerCase().includes(query.toLowerCase())
   );
   const filteredPayment = PAYMENT_SERVICES.filter((s) =>
+    s.name.toLowerCase().includes(query.toLowerCase())
+  );
+  const filteredSoftware = SOFTWARE_SERVICES.filter((s) =>
     s.name.toLowerCase().includes(query.toLowerCase())
   );
 
@@ -72,17 +112,24 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
         </div>
         <div>
           <h1 className="font-display font-black text-2xl text-slate-50">كل الخدمات</h1>
-          <p className="text-sm text-slate-400">تصفح الأرقام الوهمية والخدمات الرقمية وسوشيال ميديا والدفع الإلكتروني</p>
+          <p className="text-sm text-slate-400">تصفح البروكسي و VPN، شحن تطبيقات البث، السوشيال ميديا، السوفت وير والدفع الإلكتروني</p>
         </div>
-      </div>
-
-      {/* Tabs */}
+      </div>{/* Tabs */}
       <div className="flex gap-2 p-1 glass rounded-2xl w-full sm:w-fit overflow-x-auto">
         <TabBtn active={tab === 'services'} onClick={() => setTab('services')} icon={<Star className="w-4 h-4" />}>
           الخدمات الرقمية
         </TabBtn>
+        <TabBtn active={tab === 'vpn'} onClick={() => setTab('vpn')} icon={<ShieldCheck className="w-4 h-4" />}>
+          البروكسي و VPN
+        </TabBtn>
+        <TabBtn active={tab === 'live'} onClick={() => setTab('live')} icon={<Radio className="w-4 h-4" />}>
+          تطبيقات البث المباشر
+        </TabBtn>
         <TabBtn active={tab === 'social'} onClick={() => setTab('social')} icon={<Share2 className="w-4 h-4" />}>
-          سوشيال ميديا
+          السوشيال ميديا والرشق
+        </TabBtn>
+        <TabBtn active={tab === 'software'} onClick={() => setTab('software')} icon={<Wrench className="w-4 h-4" />}>
+          قسم السوفت وير
         </TabBtn>
         <TabBtn active={tab === 'payment'} onClick={() => setTab('payment')} icon={<CreditCard className="w-4 h-4" />}>
           الدفع الإلكتروني
@@ -97,14 +144,16 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
         <Search className="w-4 h-4 text-slate-500 absolute right-4 top-1/2 -translate-y-1/2" />
         <input
           className="field pr-11"
-          placeholder={tab === 'phones' ? 'ابحث عن دولة...' : 'ابحث عن خدمة...'}
+          placeholder={tab === 'phones' ? 'ابحث عن دولة...' : 'ابحث عن خدمة أو تطبيق...'}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
       </div>
 
+      {/* 1. الخدمات الرقمية */}
       {tab === 'services' && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 stagger">{filteredServices.map((s) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 stagger">
+          {filteredServices.map((s) => {
             const Icon = SERVICE_ICONS[s.icon] ? SERVICE_ICONS[s.icon] : InstagramGrowIcon;
             const isUnavailable = s.tag === 'غير متوفر';
             const isCrown = s.tag === 'الأكثر مبيعاً' ? true : (s.tag === 'الأكثر طلباً' ? true : false);
@@ -129,7 +178,7 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
                     </span>
                   )
                 )}
-                <div className="w-12 h-12 rounded-xl glass-strong flex items-center justify-center p-1.5">
+                <div className="w-12 h-12 rounded-xl glass-strong flex items-center justify-center p-1.5 overflow-hidden">
                   <Icon className="w-full h-full" />
                 </div>
                 <h3 className="mt-4 font-bold text-slate-50">{s.name}</h3>
@@ -137,8 +186,7 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
                 <div className="mt-3">
                   <Rating value={s.rating} reviews={s.reviews} size="xs" />
                 </div>
-                <div className="mt-3 flex items-center justify-between">
-                  <span className="gold-text font-display font-black text-lg">
+                <div className="mt-3 flex items-center justify-between"><span className="gold-text font-display font-black text-lg">
                     {s.tiers && s.tiers.length > 0 ? 'من $' + s.tiers[0].price.toFixed(2) : (s.hasQuantity ? 'من $' + s.unitPrice : '$' + s.price)}
                   </span>
                   <span className="text-[11px] text-slate-400">{s.unit ? s.unit : 'لكل طلب'}</span>
@@ -150,33 +198,24 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
         </div>
       )}
 
-      {tab === 'social' && (
+      {/* 2. قسم البروكسي و VPN */}
+      {tab === 'vpn' && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 stagger">
-          {filteredSocial.map((s) => {
-            const Icon = SERVICE_ICONS[s.icon] ? SERVICE_ICONS[s.icon] : InstagramGrowIcon;
-            const isUnavailable = s.tag === 'غير متوفر';
-            const isCrown = s.tag === 'الأكثر مبيعاً' ? true : (s.tag === 'الأكثر طلباً' ? true : false);
-
+          {filteredVpn.map((s) => {
+            const Icon = SERVICE_ICONS[s.icon] ? SERVICE_ICONS[s.icon] : ProtonIcon;
             return (
               <button
                 key={s.id}
-                disabled={isUnavailable}
                 onClick={() => onOpenService(s.id)}
-                className={"glass rounded-2xl p-5 text-right transition-all group duration-300 bg-gradient-to-br " + s.accent + " relative overflow-hidden " + (isUnavailable ? 'opacity-60 cursor-not-allowed border-red-500/40' : 'hover:border-gold-500/40 hover:-translate-y-1')}
+                className={"glass rounded-2xl p-5 text-right transition-all group duration-300 bg-gradient-to-br " + s.accent + " relative overflow-hidden hover:border-gold-500/40 hover:-translate-y-1"}
               >
-                {isUnavailable ? (
-                  <span className="absolute top-4 left-4 text-[11px] px-2.5 py-1 rounded-full bg-red-600 text-white font-bold flex items-center gap-1 shadow-lg">
-                    <Ban className="w-3 h-3" />
-                    غير متوفر
+                {s.tag && (
+                  <span className="absolute top-4 left-4 text-[10px] px-2 py-1 rounded-full gold-gradient text-slate-900 font-bold flex items-center gap-1">
+                    <Star className="w-3 h-3" />
+                    {s.tag}
                   </span>
-                ) : (
-                  s.tag && (
-                    <span className="absolute top-4 left-4 text-[10px] px-2 py-1 rounded-full gold-gradient text-slate-900 font-bold flex items-center gap-1">{isCrown ? <Crown className="w-3 h-3" /> : <Star className="w-3 h-3" />}
-                      {s.tag}
-                    </span>
-                  )
                 )}
-                <div className="w-12 h-12 rounded-xl glass-strong flex items-center justify-center p-1.5">
+                <div className="w-12 h-12 rounded-xl glass-strong flex items-center justify-center p-1 overflow-hidden">
                   <Icon className="w-full h-full" />
                 </div>
                 <h3 className="mt-4 font-bold text-slate-50">{s.name}</h3>
@@ -186,7 +225,82 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
                 </div>
                 <div className="mt-3 flex items-center justify-between">
                   <span className="gold-text font-display font-black text-lg">
-                    {s.hasQuantity ? 'من $' + s.unitPrice : '$' + s.price}
+                    {s.tiers && s.tiers.length > 0 ? 'من $' + s.tiers[0].price.toFixed(2) : '$' + s.price}
+                  </span>
+                  <span className="text-[11px] text-slate-400">{s.unit ? s.unit : 'لكل طلب'}</span>
+                </div>
+              </button>
+            );
+          })}
+          {filteredVpn.length === 0 && <EmptyState text="لا توجد اشتراكات VPN مطابقة" />}
+        </div>
+      )}
+
+      {/* 3. تطبيقات البث المباشر */}
+      {tab === 'live' && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 stagger">
+          {filteredLive.map((s) => {
+            const Icon = SERVICE_ICONS[s.icon] ? SERVICE_ICONS[s.icon] : BigoIcon;
+            return (
+              <button
+                key={s.id}
+                onClick={() => onOpenService(s.id)}
+                className={"glass rounded-2xl p-5 text-right transition-all group duration-300 bg-gradient-to-br " + s.accent + " relative overflow-hidden hover:border-gold-500/40 hover:-translate-y-1"}
+              >
+                {s.tag && (
+                  <span className="absolute top-4 left-4 text-[10px] px-2 py-1 rounded-full gold-gradient text-slate-900 font-bold flex items-center gap-1">
+                    <Star className="w-3 h-3" />
+                    {s.tag}
+                  </span>
+                )}
+                <div className="w-12 h-12 rounded-xl glass-strong flex items-center justify-center p-1 overflow-hidden">
+                  <Icon className="w-full h-full" />
+                </div>
+                <h3 className="mt-4 font-bold text-slate-50">{s.name}</h3>
+                <p className="text-xs text-slate-400 mt-1 leading-relaxed">{s.description}</p><div className="mt-3">
+                  <Rating value={s.rating} reviews={s.reviews} size="xs" />
+                </div>
+                <div className="mt-3 flex items-center justify-between">
+                  <span className="gold-text font-display font-black text-lg">
+                    {s.tiers && s.tiers.length > 0 ? 'من $' + s.tiers[0].price.toFixed(2) : '$' + s.price}
+                  </span>
+                  <span className="text-[11px] text-slate-400">{s.unit ? s.unit : 'لكل طلب'}</span>
+                </div>
+              </button>
+            );
+          })}
+          {filteredLive.length === 0 && <EmptyState text="لا توجد تطبيقات مطابقة" />}
+        </div>
+      )}
+
+      {/* 4. السوشيال ميديا والرشق */}
+      {tab === 'social' && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 stagger">
+          {filteredSocial.map((s) => {
+            const Icon = SERVICE_ICONS[s.icon] ? SERVICE_ICONS[s.icon] : InstagramBoostIcon;
+            return (
+              <button
+                key={s.id}
+                onClick={() => onOpenService(s.id)}
+                className={"glass rounded-2xl p-5 text-right transition-all group duration-300 bg-gradient-to-br " + s.accent + " relative overflow-hidden hover:border-gold-500/40 hover:-translate-y-1"}
+              >
+                {s.tag && (
+                  <span className="absolute top-4 left-4 text-[10px] px-2 py-1 rounded-full gold-gradient text-slate-900 font-bold flex items-center gap-1">
+                    <Star className="w-3 h-3" />
+                    {s.tag}
+                  </span>
+                )}
+                <div className="w-12 h-12 rounded-xl glass-strong flex items-center justify-center p-1.5 overflow-hidden">
+                  <Icon className="w-full h-full" />
+                </div>
+                <h3 className="mt-4 font-bold text-slate-50">{s.name}</h3>
+                <p className="text-xs text-slate-400 mt-1 leading-relaxed">{s.description}</p>
+                <div className="mt-3">
+                  <Rating value={s.rating} reviews={s.reviews} size="xs" />
+                </div>
+                <div className="mt-3 flex items-center justify-between">
+                  <span className="gold-text font-display font-black text-lg">
+                    ${s.price}
                   </span>
                   <span className="text-[11px] text-slate-400">{s.unit ? s.unit : 'لكل طلب'}</span>
                 </div>
@@ -197,6 +311,44 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
         </div>
       )}
 
+      {/* 5. قسم السوفت وير */}
+      {tab === 'software' && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 stagger">
+          {filteredSoftware.map((s) => {
+            const Icon = SERVICE_ICONS[s.icon] ? SERVICE_ICONS[s.icon] : UnlockToolIcon;
+            return (
+              <button
+                key={s.id}
+                onClick={() => onOpenService(s.id)}
+                className={"glass rounded-2xl p-5 text-right transition-all group duration-300 bg-gradient-to-br " + s.accent + " relative overflow-hidden hover:border-gold-500/40 hover:-translate-y-1"}
+              >
+                {s.tag && (
+                  <span className="absolute top-4 left-4 text-[10px] px-2 py-1 rounded-full gold-gradient text-slate-900 font-bold flex items-center gap-1">
+                    <Star className="w-3 h-3" />
+                    {s.tag}
+                  </span>
+                )}
+                <div className="w-12 h-12 rounded-xl glass-strong flex items-center justify-center p-1 overflow-hidden">
+                  <Icon className="w-full h-full" />
+                </div>
+                <h3 className="mt-4 font-bold text-slate-50">{s.name}</h3><p className="text-xs text-slate-400 mt-1 leading-relaxed">{s.description}</p>
+                <div className="mt-3">
+                  <Rating value={s.rating} reviews={s.reviews} size="xs" />
+                </div>
+                <div className="mt-3 flex items-center justify-between">
+                  <span className="gold-text font-display font-black text-lg">
+                    ${s.price}
+                  </span>
+                  <span className="text-[11px] text-slate-400">{s.unit ? s.unit : 'لكل طلب'}</span>
+                </div>
+              </button>
+            );
+          })}
+          {filteredSoftware.length === 0 && <EmptyState text="لا توجد أدوات مطابقة" />}
+        </div>
+      )}
+
+      {/* 6. الدفع الإلكتروني */}
       {tab === 'payment' && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 stagger">
           {filteredPayment.map((s) => {
@@ -223,7 +375,7 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
                     </span>
                   )
                 )}
-                <div className="w-12 h-12 rounded-xl glass-strong flex items-center justify-center p-1.5">
+                <div className="w-12 h-12 rounded-xl glass-strong flex items-center justify-center p-1.5 overflow-hidden">
                   <Icon className="w-full h-full" />
                 </div>
                 <h3 className="mt-4 font-bold text-slate-50">{s.name}</h3>
@@ -244,16 +396,17 @@ export function ServicesPage({ onOpenService, onBuyPhone }: ServicesProps) {
         </div>
       )}
 
+      {/* 7. الأرقام الوهمية */}
       {tab === 'phones' && (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 stagger">
-          {filteredPhones.map((c) => (<div
+          {filteredPhones.map((c) => (
+            <div
               key={c.id}
               className="glass rounded-2xl p-4 hover:border-gold-500/30 transition-all group hover:-translate-y-1 duration-300"
             >
               <div className="flex items-center justify-between mb-3">
                 <span className="text-3xl">{c.flag}</span>
-                <span className="text-[10px] px-2 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-medium">
-                  {c.available} متاح
+                <span className="text-[10px] px-2 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-medium">{c.available} متاح
                 </span>
               </div>
               <h3 className="text-sm font-bold text-slate-100 mb-1.5">{c.country}</h3>
@@ -302,7 +455,8 @@ function TabBtn({
   return (
     <button
       onClick={onClick}
-      className={active
+      className={
+        active
           ? 'flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all gold-gradient text-slate-900 shadow-glow'
           : 'flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all text-slate-400 hover:text-slate-100'
       }
