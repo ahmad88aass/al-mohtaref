@@ -90,7 +90,7 @@ function Shell() {
       <SupportWidget />
 
       <footer className="hidden md:block border-t border-white/5 py-6 text-center text-xs text-slate-600">
-        المحترف — Al-Mohtaref © {new Date().getFullYear()} | منصة الخدمات الرقمية
+        متجر الفانتوم الرقمي © {new Date().getFullYear()} | منصة الخدمات الرقمية
       </footer>
     </div>
   );
