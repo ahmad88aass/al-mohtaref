@@ -10,7 +10,7 @@ import { ServiceDetailPage } from '@/pages/ServiceDetailPage';
 import { OrdersPage } from '@/pages/OrdersPage';
 import { WalletPage } from '@/pages/WalletPage';
 import { PhonePurchaseModal } from '@/components/PhonePurchaseModal';
-import { AssistantWidget } from '@/components/AssistantWidget';
+import { SupportWidget } from '@/components/SupportWidget';
 import { NotificationPrompt } from '@/components/NotificationPrompt';
 import { LoginPage } from './login_ahmad/LoginPage';
 
@@ -87,7 +87,7 @@ function Shell() {
         onGoOrders={() => nav('orders')}
       />
 
-      <AssistantWidget />
+      <SupportWidget />
 
       <footer className="hidden md:block border-t border-white/5 py-6 text-center text-xs text-slate-600">
         المحترف — Al-Mohtaref © {new Date().getFullYear()} | منصة الخدمات الرقمية

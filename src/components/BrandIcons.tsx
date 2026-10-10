@@ -35,6 +35,30 @@ export function ExpressVpnIcon({ className = "w-6 h-6" }: { className?: string }
   );
 }
 
+export function TelegramStarsIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <div className={className + " rounded-xl overflow-hidden shadow-md flex items-center justify-center bg-black/40 border border-amber-500/30"}>
+      <img src="/categories/telegram-stars.jpg" alt="Telegram Stars" className="w-full h-full object-cover" />
+    </div>
+  );
+}
+
+export function TelegramPremiumBoxIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <div className={className + " rounded-xl overflow-hidden shadow-md flex items-center justify-center bg-black/40 border border-sky-500/30"}>
+      <img src="/categories/telegram-premium-box.jpg" alt="Telegram Premium" className="w-full h-full object-cover" />
+    </div>
+  );
+}
+
+export function InstagramVerifyIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <div className={className + " rounded-xl overflow-hidden shadow-md flex items-center justify-center bg-black/40 border border-blue-500/30"}>
+      <img src="/categories/instagram-verify.jpg" alt="Instagram Verify" className="w-full h-full object-cover" />
+    </div>
+  );
+}
+
 export function BigoIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
     <div className={className + " rounded-xl overflow-hidden shadow-md flex items-center justify-center bg-black/40 border border-cyan-500/30"}>
@@ -57,9 +81,7 @@ export function AhlanIcon({ className = "w-6 h-6" }: { className?: string }) {
       <img src="/categories/ahlan.jpg" alt="Ahlan" className="w-full h-full object-cover" />
     </div>
   );
-}
-
-export function YaahlanIcon({ className = "w-6 h-6" }: { className?: string }) {
+}export function YaahlanIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
     <div className={className + " rounded-xl overflow-hidden shadow-md flex items-center justify-center bg-black/40 border border-purple-500/30"}>
       <img src="/categories/yaahlan.jpg" alt="Yaahlan" className="w-full h-full object-cover" />
@@ -81,7 +103,9 @@ export function SugarLiveIcon({ className = "w-6 h-6" }: { className?: string })
       <img src="/categories/sugar-live.jpg" alt="Sugar Live" className="w-full h-full object-cover" />
     </div>
   );
-}export function TakaLiveIcon({ className = "w-6 h-6" }: { className?: string }) {
+}
+
+export function TakaLiveIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
     <div className={className + " rounded-xl overflow-hidden shadow-md flex items-center justify-center bg-black/40 border border-blue-500/30"}>
       <img src="/categories/taka-live.jpg" alt="Taka Live" className="w-full h-full object-cover" />
@@ -141,14 +165,11 @@ export function InstagramGrowIcon({ className = "w-6 h-6" }: { className?: strin
 
 export function TelegramPremiumIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="m22 2-7 20-4-9-9-4Z"/>
-      <path d="M22 2 11 13"/>
-    </svg>
+    <div className={className + " rounded-xl overflow-hidden shadow-md flex items-center justify-center bg-black/40 border border-sky-500/30"}>
+      <img src="/categories/telegram-premium-box.jpg" alt="Telegram Premium" className="w-full h-full object-cover" />
+    </div>
   );
-}
-
-export function InstagramUnlockIcon({ className = "w-6 h-6" }: { className?: string }) {
+}export function InstagramUnlockIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
@@ -173,7 +194,9 @@ export function PubgUcIcon({ className = "w-6 h-6" }: { className?: string }) {
       UC
     </div>
   );
-}export function TiktokGrowIcon({ className = "w-6 h-6" }: { className?: string }) {
+}
+
+export function TiktokGrowIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
     <div className={className + " rounded-xl bg-gradient-to-tr from-cyan-400 to-rose-500 flex items-center justify-center text-white font-black text-[10px] shadow-md"}>
       TT

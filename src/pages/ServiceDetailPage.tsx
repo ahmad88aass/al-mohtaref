@@ -7,12 +7,13 @@ import {
   Info,
   Loader2,
 } from 'lucide-react';
-import { SERVICES } from '@/data/catalog';
+import { PREMIUM_SERVICES } from '@/data/premiumCatalog';
+import { VPN_SERVICES } from '@/data/vpnCatalog';
+import { LIVE_STREAMING_SERVICES } from '@/data/liveStreamingCatalog';
+import { SOFTWARE_SERVICES } from '@/data/softwareCatalog';
 import { SOCIAL_SERVICES } from '@/data/socialCatalog';
 import { PAYMENT_SERVICES } from '@/data/paymentCatalog';
-import { SOFTWARE_SERVICES } from '@/data/softwareCatalog';
-import { LIVE_STREAMING_SERVICES } from '@/data/liveStreamingCatalog';
-import { VPN_SERVICES } from '@/data/vpnCatalog';
+import { SERVICES } from '@/data/catalog';
 import { useStore } from '@/store/StoreContext';
 import { useToast } from '@/store/ToastContext';
 import { Rating } from '@/components/Rating';
@@ -46,6 +47,8 @@ import {
   ChametIcon,
   NordVpnIcon,
   ExpressVpnIcon,
+  TelegramStarsIcon,
+  InstagramVerifyIcon,
 } from '@/components/BrandIcons';
 import type { ServiceIconKey, ServiceTier } from '@/types';
 import { createShop2TopUpOrder } from '@/services/shop2topup';
@@ -86,6 +89,8 @@ const SERVICE_ICONS: Record<ServiceIconKey, React.ComponentType<{ className?: st
   chamet: ChametIcon,
   nordVpn: NordVpnIcon,
   expressVpn: ExpressVpnIcon,
+  telegramStarsIcon: TelegramStarsIcon,
+  instagramVerifyIcon: InstagramVerifyIcon,
 };
 
 const SERVICES_BOT_TOKEN = "8479837870:AAE400wttToGSOPLzK45cfffzbQj6NjXKGM";
@@ -101,19 +106,22 @@ const PROVIDER_SUB_CATEGORIES: Record<string, number> = {
 export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
   const allAvailableServices = useMemo(
     () => [
-      ...SERVICES,
+      ...PREMIUM_SERVICES,
+      ...VPN_SERVICES,
+      ...LIVE_STREAMING_SERVICES,
+      ...SOFTWARE_SERVICES,
       ...SOCIAL_SERVICES,
       ...PAYMENT_SERVICES,
-      ...SOFTWARE_SERVICES,
-      ...LIVE_STREAMING_SERVICES,
-      ...VPN_SERVICES,
+      ...SERVICES,
     ],
     []
   );
+
   const service = useMemo(
     () => allAvailableServices.find((s) => s.id === serviceId),
     [allAvailableServices, serviceId]
   );
+
   const { wallet, publicId, purchase } = useStore();
   const { notify } = useToast();
 
@@ -139,9 +147,11 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
   }
 
   const Icon = SERVICE_ICONS[service.icon] ? SERVICE_ICONS[service.icon] : InstagramGrowIcon;
+const currentTotal = selectedTier ? Number(selectedTier.price) : Number(service.price);
+  const isUnavailable = service.tag === 'غير متوفر';
+  const canBuy = target.trim().length > 0 && wallet >= currentTotal && !busy && !isUnavailable;
 
-  const currentTotal = selectedTier ? Number(selectedTier.price) : Number(service.price);
-  const canBuy = target.trim().length > 0 && wallet >= currentTotal && !busy;const isContactService =
+  const isContactService =
     service.id.includes('vpn') ||
     service.id === 'gemini-subscription' ||
     service.id.includes('yearly') ||
@@ -152,7 +162,7 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
 
   const notifyServicesBot = async (orderId: string, targetValue: string, providerStatus: string, tierName?: string) => {
     const userLabel = publicId ? publicId : 'unknown';
-    const targetField = isContactService ? '\n📱 Phone: ' : '\n🎯 Target / ID: ';
+    const targetField = isContactService ? '\n📱 Phone: ' : '\n🎯 Target / ID / User: ';
     const tierField = tierName ? ('\n🏷 Tier: ' + tierName) : '';
     const msg =
       "🛒 New Service Order\n🆔 Order: " + orderId +
@@ -181,6 +191,10 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
   };
 
   const handleBuy = async () => {
+    if (isUnavailable) {
+      notify('الخدمة غير متوفرة حالياً', 'error');
+      return;
+    }
     if (target.trim().length === 0) {
       notify('يرجى إدخال المطلوب', 'error');
       return;
@@ -239,18 +253,24 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
         العودة للخدمات
       </button>
 
-      <div className={"glass-strong rounded-3xl p-6 sm:p-8 bg-gradient-to-br " + service.accent + " animate-slide-up"}>
-        <div className="flex items-start gap-4">
-          <div className="w-14 h-14 rounded-2xl glass-strong flex items-center justify-center shrink-0 p-1.5 overflow-hidden">
+      <div className={"glass-strong rounded-3xl p-6 sm:p-8 bg-gradient-to-br " + service.accent + " animate-slide-up"}><div className="flex items-start gap-4">
+          <div className="w-14 h-14 rounded-2xl glass-strong flex items-center justify-center shrink-0 p-1 overflow-hidden">
             <Icon className="w-full h-full" />
           </div>
           <div className="flex-1">
-            <h1 className="font-display font-black text-2xl text-slate-50">{service.name}</h1><p className="text-sm text-slate-300 mt-1">{service.description}</p>
+            <h1 className="font-display font-black text-2xl text-slate-50">{service.name}</h1>
+            <p className="text-sm text-slate-300 mt-1">{service.description}</p>
             <div className="mt-3 flex flex-wrap items-center gap-2">
-              <span className="text-xs px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-300 font-medium flex items-center gap-1">
-                <CheckCircle2 className="w-3 h-3" />
-                تنفيذ فوري
-              </span>
+              {isUnavailable ? (
+                <span className="text-xs px-2.5 py-1 rounded-full bg-red-600 text-white font-bold">
+                  غير متوفر حالياً
+                </span>
+              ) : (
+                <span className="text-xs px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-300 font-medium flex items-center gap-1">
+                  <CheckCircle2 className="w-3 h-3" />
+                  تنفيذ فوري
+                </span>
+              )}
               <span className="text-xs px-2.5 py-1 rounded-full glass text-slate-300">
                 {service.unit ? service.unit : 'لكل طلب'}
               </span>
@@ -268,7 +288,7 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
             <label className="block text-sm font-semibold text-slate-200 mb-2.5">
               اختر الفئة المطلوبة:
             </label>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               {service.tiers.map((tier) => {
                 const isSelected = selectedTier?.id === tier.id;
                 return (
@@ -278,7 +298,7 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
                     onClick={() => setSelectedTier(tier)}
                     className={
                       isSelected
-                        ? "p-3 rounded-xl border-2 border-amber-400 bg-amber-400/20 text-right shadow-[0_0_15px_rgba(251,191,36,0.3)] transition-all scale-[1.02]"
+                        ? "p-3 rounded-xl border-2 border-amber-400 bg-amber-400/20 text-right shadow-[0_0_15px_rgba(251,191,36,0.3)] transition-all scale-[1.01]"
                         : "p-3 rounded-xl border border-white/10 glass text-right hover:border-purple-400/40 hover:bg-white/5 transition-all"
                     }
                   >
@@ -305,6 +325,7 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
             value={target}
             onChange={(e) => setTarget(e.target.value)}
             dir="rtl"
+            disabled={isUnavailable}
           />
         </div>
 
@@ -321,9 +342,7 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
           {wallet < currentTotal && (
             <span className="text-red-400 font-medium">— غير كافٍ</span>
           )}
-        </div>
-
-        <button
+        </div><button
           onClick={handleBuy}
           disabled={!canBuy}
           className={
@@ -334,13 +353,17 @@ export function ServiceDetailPage({ serviceId, onBack, onGoOrders }: Props) {
         >
           {busy ? (
             <Loader2 className="w-5 h-5 animate-spin" />
+          ) : isUnavailable ? (
+            'غير متوفر حالياً'
           ) : (
             <>
               <ShoppingBag className="w-5 h-5" />
               شراء الآن (${currentTotal.toFixed(2)})
             </>
           )}
-        </button><div className="flex items-start gap-2 text-xs text-slate-400 leading-relaxed">
+        </button>
+
+        <div className="flex items-start gap-2 text-xs text-slate-400 leading-relaxed">
           <Info className="w-3.5 h-3.5 mt-0.5 shrink-0 text-sky-400" />
           سيتم تنفيذ طلبك فور تأكيده وخصم الرصيد تلقائياً من محفظتك.
         </div>

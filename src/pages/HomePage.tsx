@@ -36,6 +36,13 @@ export const HomePage: React.FC<HomePageProps> = ({ onNav, onOpenService }) => {
 
   const categories = [
     {
+      id: 'premium-section',
+      name: 'البريميوم والتوثيق',
+      image: '/categories/premium-main.jpg',
+      description: 'اشتراكات تليجرام بريميوم، نجوم تليجرام، وتوثيق حسابات انستغرام رسمياً.',
+      action: () => navigateToTab('البريميوم والتوثيق')
+    },
+    {
       id: 'vpn-section',
       name: 'البروكسي vbn بريميوم',
       image: '/categories/vpn-main.jpg',
@@ -62,16 +69,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onNav, onOpenService }) => {
       image: '/categories/unlock-tool.jpg',
       description: 'اشتراكات سنوية لأدوات Unlock Tool و Oxygen و SamFw.',
       action: () => navigateToTab('قسم السوفت وير')
-    },
-    {
-      id: 'telegram-prem',
-      name: 'تفعيل اشتراك تليجرام بريميوم',
-      image: '/categories/telegram-premium.jpg',
-      description: 'اشتراك تيليجرام بريميوم رسمي وسريع.',
-      action: () => {
-        if (onOpenService) onOpenService('telegram-premium');
-        else if (onNav) onNav('services');
-      }
     },
     {
       id: 'pubg',
@@ -115,10 +112,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onNav, onOpenService }) => {
 
   const bannerTransformStyle = {
     transform: 'translateX(' + (currentIndex * 100) + '%)'
-  };return (
-    <div className="min-h-screen bg-[#090511] text-white dir-rtl font-sans pb-16 overflow-x-hidden">
-      
-      {/* 1. البانر السلس */}
+  };
+
+  return (
+    <div className="min-h-screen bg-[#090511] text-white dir-rtl font-sans pb-16 overflow-x-hidden">{/* 1. البانر السلس */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-5">
         <div className="relative w-full aspect-[2.6/1] sm:aspect-[3.5/1] max-h-[260px] rounded-2xl overflow-hidden banner-card border border-purple-500/20 bg-black/40">
           <div
@@ -153,7 +150,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNav, onOpenService }) => {
         </div>
       </div>
 
-      {/* 2. شريط متحرك إعلاني مستمر */}
+      {/* 2. شريط متحرك إعلاني */}
       <div className="mt-4 border-y border-purple-500/20 bg-purple-950/20 py-2.5 overflow-hidden text-xs font-medium text-purple-100 backdrop-blur-md">
         <div className="seamless-marquee-container" dir="ltr">
           <div className="seamless-marquee-track">
@@ -184,11 +181,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onNav, onOpenService }) => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* 3. شريط البحث */}
-        <div className="mt-5 max-w-lg mx-auto relative"><input
+        <div className="mt-5 max-w-lg mx-auto relative">
+          <input
             type="text"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="بحث عن منتج، بطاقة، أو خدمة..."
+            onChange={(e) => setSearchQuery(e.target.value)}placeholder="بحث عن منتج، بطاقة، أو خدمة..."
             className="w-full bg-[#150d24]/90 border border-purple-500/25 rounded-2xl px-5 py-3 text-sm text-purple-100 placeholder-purple-300/40 focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400 transition text-right shadow-inner"
           />
         </div>

@@ -27,7 +27,9 @@ export type ServiceIconKey =
   | 'micoLive'
   | 'chamet'
   | 'nordVpn'
-  | 'expressVpn';
+  | 'expressVpn'
+  | 'telegramStarsIcon'
+  | 'instagramVerifyIcon';
 
 export interface ServiceTier {
   id: string;
