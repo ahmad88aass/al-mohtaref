@@ -117,7 +117,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNav, onOpenService }) => {
   return (
     <div className="min-h-screen bg-[#090511] text-white dir-rtl font-sans pb-16 overflow-x-hidden">{/* 1. البانر السلس */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-5">
-        <div className="relative w-full aspect-[2.6/1] sm:aspect-[3.5/1] max-h-[260px] rounded-2xl overflow-hidden banner-card border border-purple-500/20 bg-black/40">
+        <div className="relative w-full aspect-[16/7] sm:aspect-[21/8] rounded-3xl overflow-hidden shadow-2xl border border-purple-500/10 bg-transparent">
           <div
             className="flex h-full w-full transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
             style={bannerTransformStyle}
@@ -133,7 +133,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNav, onOpenService }) => {
             ))}
           </div>
 
-          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10 px-2 py-1 rounded-full bg-black/30 backdrop-blur-md">
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1 z-10 px-2 py-0.5 rounded-full bg-black/20 backdrop-blur-md">
             {bannerImages.map((_, dotIdx) => (
               <button
                 key={dotIdx}
