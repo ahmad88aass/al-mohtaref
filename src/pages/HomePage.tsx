@@ -116,7 +116,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNav, onOpenService }) => {
 
   return (
     <div className="min-h-screen bg-[#090511] text-white dir-rtl font-sans pb-16 overflow-x-hidden">{/* 1. البانر السلس */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-5">
+      <div className="max-w-4xl mx-auto px-4 pt-4">
         <div className="relative w-full aspect-[16/7] sm:aspect-[21/8] rounded-3xl overflow-hidden shadow-2xl border border-purple-500/10 bg-transparent">
           <div
             className="flex h-full w-full transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
@@ -127,7 +127,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNav, onOpenService }) => {
                 <img
                   src={src}
                   alt={'Phantom Banner ' + (idx + 1)}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-fill sm:object-cover"
                 />
               </div>
             ))}
@@ -210,7 +210,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNav, onOpenService }) => {
                   <img
                     src={cat.image}
                     alt={cat.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-fill sm:object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
